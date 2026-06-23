@@ -7,7 +7,9 @@ import org.testng.annotations.BeforeMethod;
 import pages.LoginPage;
 import pages.ProjectsPage;
 import utils.PropertyReader;
+
 import java.util.HashMap;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest {
