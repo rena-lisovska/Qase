@@ -1,4 +1,4 @@
-package dict;
+package ui.dict;
 
 public class Elements {
 

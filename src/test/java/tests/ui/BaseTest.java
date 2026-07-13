@@ -1,11 +1,11 @@
-package tests;
+package tests.ui;
 
 import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import pages.LoginPage;
-import pages.ProjectsPage;
+import ui.pages.LoginPage;
+import ui.pages.ProjectsPage;
 import utils.PropertyReader;
 
 import java.util.HashMap;

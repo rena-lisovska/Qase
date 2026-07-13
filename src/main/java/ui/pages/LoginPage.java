@@ -1,4 +1,4 @@
-package pages;
+package ui.pages;
 
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.shadowCss;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
-import static dict.Elements.*;
+import static ui.dict.Elements.*;
 
 @Log4j2
 public class LoginPage extends BasePage {

@@ -1,6 +1,6 @@
-package pages;
+package ui.pages;
 
-import dict.Elements;
+import ui.dict.Elements;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 
@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static dict.Elements.PROJECTS_PAGE_TITLE;
+import static ui.dict.Elements.PROJECTS_PAGE_TITLE;
 
 @Log4j2
 public class ProjectsPage extends BasePage {
