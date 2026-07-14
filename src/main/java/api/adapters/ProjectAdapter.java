@@ -1,8 +1,9 @@
 package api.adapters;
 
-import api.models.project.CreateProjectRequest;
-import api.models.project.CreateProjectResponse;
-import api.models.project.GetAllProjectsResponse;
+import api.endpoints.Endpoints;
+import api.models.project.request.CreateProjectRequest;
+import api.models.project.response.CreateProjectResponse;
+import api.models.project.response.GetAllProjectsResponse;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -14,7 +15,7 @@ public class ProjectAdapter extends BaseAdapter {
                 .spec(spec)
                 .log().all()
                 .when()
-                .get("/project")
+                .get(Endpoints.PROJECT)
                 .then()
                 .log().all()
                 .spec(ok200)
@@ -23,13 +24,13 @@ public class ProjectAdapter extends BaseAdapter {
                 .as(GetAllProjectsResponse.class);
     }
 
-    public static CreateProjectResponse сreateProject(CreateProjectRequest request) {
+    public static CreateProjectResponse createProject(CreateProjectRequest request) {
         return given()
                 .spec(spec)
                 .body(request)
                 .log().all()
                 .when()
-                .post("/project")
+                .post(Endpoints.PROJECT)
                 .then()
                 .log().all()
                 .spec(ok200)
@@ -41,10 +42,9 @@ public class ProjectAdapter extends BaseAdapter {
     public static void deleteProject(String code) {
         given()
                 .spec(spec)
-                .pathParam("code", code)
                 .log().all()
                 .when()
-                .delete("/project/{code}")
+                .delete(Endpoints.PROJECT_BY_CODE, code)
                 .then()
                 .log().all()
                 .spec(ok200);

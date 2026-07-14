@@ -1,24 +1,24 @@
-package api.models.project;
+package api.models.project.request;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
 public class CreateProjectRequest {
-    @Expose
+    @JsonProperty("title")
     private String title;
 
-    @Expose
+    @JsonProperty("code")
     private String code;
 
-    @Expose
+    @JsonProperty("description")
     private String description;
 
-    @Expose
+    @JsonProperty("access")
     private String access;
 
-    @Expose
+    @JsonProperty("group")
     private String group;
 }

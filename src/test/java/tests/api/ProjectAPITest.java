@@ -1,9 +1,8 @@
 package tests.api;
 
 import api.adapters.ProjectAdapter;
-import api.models.project.CreateProjectRequest;
-import api.models.project.CreateProjectResponse;
-import org.testng.annotations.AfterMethod;
+import api.models.project.request.CreateProjectRequest;
+import api.models.project.response.CreateProjectResponse;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertTrue;
@@ -22,7 +21,7 @@ public class ProjectAPITest {
                 .access("all")
                 .group("all")
                 .build();
-        CreateProjectResponse response = ProjectAdapter.сreateProject(request);
+        CreateProjectResponse response = ProjectAdapter.createProject(request);
         assertTrue(response.status);
         assertEquals(response.result.code, "QA1");
     }
