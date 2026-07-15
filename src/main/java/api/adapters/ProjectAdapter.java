@@ -1,52 +1,104 @@
 package api.adapters;
 
+import api.client.ApiClient;
 import api.endpoints.Endpoints;
 import api.models.project.request.CreateProjectRequest;
-import api.models.project.response.CreateProjectResponse;
-import api.models.project.response.GetAllProjectsResponse;
+import api.models.project.response.create.CreateProjectResponse;
+import api.models.project.response.create.ErrorCreateProjectResponse;
+import api.models.project.response.delete.DeleteProjectResponse;
+import api.models.project.response.get.GetAllProjectsResponse;
+import api.models.project.response.get.GetProjectResponse;
+import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 
-import static io.restassured.RestAssured.given;
+import java.util.Map;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
+@Log4j2
 public class ProjectAdapter extends BaseAdapter {
 
-    public static GetAllProjectsResponse getAllProjects() {
-        return given()
-                .spec(spec)
-                .log().all()
-                .when()
-                .get(Endpoints.PROJECT)
+    @Step("API: Get project by code")
+    public static GetProjectResponse getProject(String code) {
+        log.info("Getting project by code [{}] through API", code);
+        return ApiClient
+                .get(
+                        Endpoints.PROJECT_BY_CODE,
+                        Map.of("code", code)
+                )
                 .then()
                 .log().all()
                 .spec(ok200)
-                .body(matchesJsonSchemaInClasspath("schemas/get_all_projects_schema.json"))
+                .body(matchesJsonSchemaInClasspath(
+                        "schemas/get_project_by_code.json"
+                ))
                 .extract()
-                .as(GetAllProjectsResponse.class);
+                .as(GetProjectResponse.class);
     }
 
-    public static CreateProjectResponse createProject(CreateProjectRequest request) {
-        return given()
-                .spec(spec)
-                .body(request)
-                .log().all()
-                .when()
-                .post(Endpoints.PROJECT)
+    @Step("API: Create valid project")
+    public static CreateProjectResponse createProject(CreateProjectRequest bodyRequest) {
+        log.info("Creating valid project through API");
+        return ApiClient
+                .post(
+                        Endpoints.PROJECT,
+                        bodyRequest
+                )
                 .then()
                 .log().all()
                 .spec(ok200)
-                .body(matchesJsonSchemaInClasspath("schemas/create_project_schema.json"))
+                .body(matchesJsonSchemaInClasspath(
+                        "schemas/create_project_schema.json"
+                ))
                 .extract()
                 .as(CreateProjectResponse.class);
     }
 
-    public static void deleteProject(String code) {
-        given()
-                .spec(spec)
-                .log().all()
-                .when()
-                .delete(Endpoints.PROJECT_BY_CODE, code)
+    @Step("API: Create invalid project")
+    public static ErrorCreateProjectResponse createInvalidProject(CreateProjectRequest bodyRequest) {
+        log.info("Creating invalid project through API");
+        return ApiClient
+                .post(
+                        Endpoints.PROJECT,
+                        bodyRequest
+                )
                 .then()
                 .log().all()
-                .spec(ok200);
+                .spec(badRequest400)
+                .extract()
+                .as(ErrorCreateProjectResponse.class);
+    }
+
+    @Step("API: Delete project by code")
+    public static DeleteProjectResponse deleteProject(String code) {
+        log.info("Deleting a project through API by code [{}]", code);
+        return ApiClient
+                .delete(
+                        Endpoints.PROJECT_BY_CODE,
+                        Map.of("code", code)
+                )
+                .then()
+                .log().all()
+                .spec(ok200)
+                .body(matchesJsonSchemaInClasspath(
+                        "schemas/delete_project_schema.json"
+                ))
+                .extract()
+                .as(DeleteProjectResponse.class);
+    }
+
+    @Step("API: Get all projects available to the account")
+    public static GetAllProjectsResponse getAllProjects() {
+        log.info("Getting all projects through API");
+        return ApiClient
+                .get(Endpoints.PROJECT)
+                .then()
+                .log().all()
+                .spec(ok200)
+                .body(matchesJsonSchemaInClasspath(
+                        "schemas/get_all_projects_schema.json"
+                ))
+                .extract()
+                .as(GetAllProjectsResponse.class);
     }
 }
