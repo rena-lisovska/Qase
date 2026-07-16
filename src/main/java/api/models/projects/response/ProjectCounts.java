@@ -1,4 +1,4 @@
-package api.models.project.response.get;
+package api.models.projects.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GetProjectCounts {
+public class ProjectCounts {
+
     @JsonProperty("cases")
     private Integer cases;
 
@@ -17,8 +18,8 @@ public class GetProjectCounts {
     private Integer milestones;
 
     @JsonProperty("runs")
-    private GetProjectRuns runs;
+    private ProjectRuns runs;
 
     @JsonProperty("defects")
-    private GetProjectDefects defects;
+    private ProjectDefects defects;
 }

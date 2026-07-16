@@ -1,11 +1,11 @@
 package tests.api;
 
 import api.adapters.ProjectAdapter;
-import api.models.project.request.CreateProjectRequest;
-import api.models.project.response.create.CreateProjectResponse;
-import api.models.project.response.create.ErrorCreateProjectResponse;
-import api.models.project.response.delete.DeleteProjectResponse;
-import api.models.project.response.get.GetProjectResponse;
+import api.models.projects.request.CreateProjectRequest;
+import api.models.projects.response.CreateProjectResponse;
+import api.models.projects.response.ErrorCreateProjectResponse;
+import api.models.projects.response.DeleteProjectResponse;
+import api.models.projects.response.GetProjectResponse;
 import factory.ProjectFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
@@ -22,7 +22,7 @@ public class ProjectApiTest {
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Qase_01")
     @Feature("Project")
-    @Story("CRUD operations on a project with all fields")
+    @Story("CRUD operations on project with all fields")
     public void checkCRUDProject() {
         SoftAssert softAssert = new SoftAssert();
         CreateProjectRequest request = ProjectFactory.validProjectRq();

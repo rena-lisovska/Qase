@@ -1,4 +1,4 @@
-package api.models.project.request;
+package api.models.projects.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class CreateProjectRequest {
+
     @JsonProperty("title")
     private String title;
 

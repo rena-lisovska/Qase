@@ -1,15 +1,16 @@
-package api.models.project.response.get;
+package api.models.projects.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class GetProjectDefects {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ProjectRuns {
+
     @JsonProperty("total")
     private Integer total;
 
-    @JsonProperty("open")
-    private Integer open;
+    @JsonProperty("active")
+    private Integer active;
 }

@@ -1,9 +1,11 @@
-package api.models.project.response.create;
+package api.models.projects.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ErrorField {
 
     @JsonProperty("field")

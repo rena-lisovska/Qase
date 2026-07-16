@@ -1,4 +1,4 @@
-package api.models.project.response.get;
+package api.models.projects.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -2,12 +2,12 @@ package api.adapters;
 
 import api.client.ApiClient;
 import api.endpoints.Endpoints;
-import api.models.project.request.CreateProjectRequest;
-import api.models.project.response.create.CreateProjectResponse;
-import api.models.project.response.create.ErrorCreateProjectResponse;
-import api.models.project.response.delete.DeleteProjectResponse;
-import api.models.project.response.get.GetAllProjectsResponse;
-import api.models.project.response.get.GetProjectResponse;
+import api.models.projects.request.CreateProjectRequest;
+import api.models.projects.response.CreateProjectResponse;
+import api.models.projects.response.ErrorCreateProjectResponse;
+import api.models.projects.response.DeleteProjectResponse;
+import api.models.projects.response.GetAllProjectsResponse;
+import api.models.projects.response.GetProjectResponse;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 

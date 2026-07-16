@@ -1,6 +1,6 @@
 package factory;
 
-import api.models.project.request.CreateProjectRequest;
+import api.models.projects.request.CreateProjectRequest;
 import com.github.javafaker.Faker;
 import enums.AccessType;
 import enums.GroupType;
