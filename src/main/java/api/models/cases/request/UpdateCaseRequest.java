@@ -1,12 +1,17 @@
 package api.models.cases.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.util.List;
 
 @Data
-@Builder
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UpdateCaseRequest {
     @JsonProperty("steps_type")
     private String stepsType;
