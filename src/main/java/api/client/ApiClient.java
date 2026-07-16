@@ -15,8 +15,7 @@ public class ApiClient extends BaseAdapter {
                 .get(endpoint);
     }
 
-    public static Response get(String endpoint,
-                               Map<String, ?> pathParams) {
+    public static Response get(String endpoint, Map<String, ?> pathParams) {
         return given()
                 .spec(spec)
                 .pathParams(pathParams)
@@ -25,45 +24,39 @@ public class ApiClient extends BaseAdapter {
                 .get(endpoint);
     }
 
-    public static Response post(String endpoint,
-                                Object body) {
+    public static Response post(String endpoint, Object bodyRequest) {
         return given()
                 .spec(spec)
-                .body(body)
+                .body(bodyRequest)
                 .log().all()
         .when()
                 .post(endpoint);
     }
 
-    public static Response post(String endpoint,
-                                Object body,
-                                Map<String, ?> pathParams) {
+    public static Response post(String endpoint, Map<String, ?> pathParams, Object bodyRequest) {
         return given()
                 .spec(spec)
                 .pathParams(pathParams)
-                .body(body)
+                .body(bodyRequest)
                 .log().all()
         .when()
                 .post(endpoint);
     }
 
-    public static Response patch(String endpoint,
-                                 Object body) {
+    public static Response patch(String endpoint, Object bodyRequest) {
         return given()
                 .spec(spec)
-                .body(body)
+                .body(bodyRequest)
                 .log().all()
         .when()
                 .patch(endpoint);
     }
 
-    public static Response patch(String endpoint,
-                                 Object body,
-                                 Map<String, ?> pathParams) {
+    public static Response patch(String endpoint, Map<String, ?> pathParams, Object bodyRequest) {
         return given()
                 .spec(spec)
                 .pathParams(pathParams)
-                .body(body)
+                .body(bodyRequest)
                 .log().all()
         .when()
                 .patch(endpoint);

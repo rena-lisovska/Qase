@@ -71,7 +71,7 @@ public class ProjectAdapter extends BaseAdapter {
 
     @Step("API: Delete project by code")
     public static DeleteProjectResponse deleteProject(String code) {
-        log.info("Deleting a project through API by code [{}]", code);
+        log.info("Deleting project through API by code [{}]", code);
         return ApiClient
                 .delete(
                         Endpoints.PROJECT_BY_CODE,

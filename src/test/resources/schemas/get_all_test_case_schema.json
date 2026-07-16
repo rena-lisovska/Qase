@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "boolean"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "number"
+        },
+        "filtered": {
+          "type": "number"
+        },
+        "count": {
+          "type": "number"
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "position": {
+                "type": "number"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "preconditions": {},
+              "postconditions": {},
+              "severity": {
+                "type": "number"
+              },
+              "priority": {
+                "type": "number"
+              },
+              "type": {
+                "type": "number"
+              },
+              "layer": {
+                "type": "number"
+              },
+              "is_flaky": {
+                "type": "number"
+              },
+              "is_muted": {
+                "type": "boolean"
+              },
+              "behavior": {
+                "type": "number"
+              },
+              "automation": {
+                "type": "number"
+              },
+              "isManual": {
+                "type": "boolean"
+              },
+              "isToBeAutomated": {
+                "type": "boolean"
+              },
+              "status": {
+                "type": "number"
+              },
+              "milestone_id": {},
+              "suite_id": {
+                "type": "number"
+              },
+              "links": {
+                "type": "array",
+                "items": {}
+              },
+              "custom_fields": {
+                "type": "array",
+                "items": {}
+              },
+              "attachments": {
+                "type": "array",
+                "items": {}
+              },
+              "steps_type": {},
+              "steps": {
+                "type": "array",
+                "items": {}
+              },
+              "params": {
+                "type": "array",
+                "items": {}
+              },
+              "parameters": {
+                "type": "array",
+                "items": {}
+              },
+              "member_id": {
+                "type": "number"
+              },
+              "author_id": {
+                "type": "number"
+              },
+              "author_uuid": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {}
+              },
+              "deleted": {},
+              "created": {
+                "type": "string"
+              },
+              "updated": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "position",
+              "title",
+              "preconditions",
+              "postconditions",
+              "severity",
+              "priority",
+              "type",
+              "layer",
+              "is_flaky",
+              "is_muted",
+              "behavior",
+              "automation",
+              "isManual",
+              "isToBeAutomated",
+              "status",
+              "milestone_id",
+              "suite_id",
+              "links",
+              "custom_fields",
+              "attachments",
+              "steps_type",
+              "steps",
+              "params",
+              "parameters",
+              "member_id",
+              "author_id",
+              "author_uuid",
+              "tags",
+              "deleted",
+              "created",
+              "updated",
+              "created_at",
+              "updated_at"
+            ]
+          }
+        }
+      },
+      "required": [
+        "total",
+        "filtered",
+        "count",
+        "entities"
+      ]
+    }
+  },
+  "required": [
+    "status",
+    "result"
+  ]
+}
