@@ -1,12 +1,12 @@
 package factory;
 
 import api.models.testcase.request.CreateTestCaseRequest;
+import api.models.testcase.request.UpdateTestCaseRequest;
 import com.github.javafaker.Faker;
 import enums.*;
 import lombok.extern.log4j.Log4j2;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Log4j2
 public class TestCaseFactory {
@@ -26,54 +26,26 @@ public class TestCaseFactory {
                 .layer(LayerType.random().getValue())
                 .status(StatusType.random().getValue())
                 .isFlaky(FlakyType.random().getValue())
-                .isManual(ThreadLocalRandom.current().nextBoolean())
-                .isToBeAutomated(ThreadLocalRandom.current().nextBoolean())
+                .isManual(BooleanType.random().getValue())
+                .isToBeAutomated(BooleanType.random().getValue())
                 .attachments(List.of())
                 .tags(List.of(
                         FAKER.hacker().noun(),
                         FAKER.app().name()
                 ))
                 .parameters(List.of())
+                .stepsType(StepsType.CLASSIC.getValue())
+                .steps(List.of())
                 .build();
         log.info("Generated test case with all fields: [{}]", testCase);
         return testCase;
     }
 
-    public static CreateTestCaseRequest minimalTestCaseRq() {
-        CreateTestCaseRequest testCase = CreateTestCaseRequest.builder()
-                .title("Verify AUTO test through API " + FAKER.bothify("API-??##"))
-                .status(StatusType.random().getValue())
-                .severity(SeverityType.random().getValue())
-                .priority(PriorityType.random().getValue())
-                .type(CaseType.random().getValue())
-                .layer(LayerType.random().getValue())
-                .isFlaky(FlakyType.random().getValue())
-                .isManual(ThreadLocalRandom.current().nextBoolean())
+    public static UpdateTestCaseRequest updateTestCaseRq(CreateTestCaseRequest source) {
+        return UpdateTestCaseRequest.builder()
+                .title(source.getTitle() + " Updated")
+                .description(source.getDescription() + " Updated")
+                .severity(SeverityType.CRITICAL.getValue())
                 .build();
-        log.info("Generated test case with required fields only: [{}]", testCase);
-        return testCase;
-    }
-
-    public static CreateTestCaseRequest invalidTestCaseRq() {
-        CreateTestCaseRequest testCase = CreateTestCaseRequest.builder()
-                .severity(SeverityType.random().getValue())
-                .priority(PriorityType.random().getValue())
-                .behavior(BehaviorType.random().getValue())
-                .type(CaseType.random().getValue())
-                .layer(LayerType.random().getValue())
-                .status(StatusType.random().getValue())
-                .isFlaky(FlakyType.random().getValue())
-                .isManual(ThreadLocalRandom.current().nextBoolean())
-                .isToBeAutomated(ThreadLocalRandom.current().nextBoolean())
-                .build();
-        log.info("Generated test case without required fields: [{}", testCase);
-        return testCase;
-    }
-
-    public static CreateTestCaseRequest emptyTestCaseRq() {
-        CreateTestCaseRequest testCase = CreateTestCaseRequest.builder()
-                .build();
-        log.info("Generated empty test case");
-        return testCase;
     }
 }

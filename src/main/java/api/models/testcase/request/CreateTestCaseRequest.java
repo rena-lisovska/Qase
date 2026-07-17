@@ -1,10 +1,8 @@
 package api.models.testcase.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Data
@@ -12,6 +10,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreateTestCaseRequest extends UpdateTestCaseRequest {
 
     @JsonProperty("created_at")

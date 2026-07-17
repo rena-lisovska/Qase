@@ -1,5 +1,6 @@
 package api.models.testcase.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UpdateTestCaseRequest {
     @JsonProperty("steps_type")
     private String stepsType;
@@ -53,10 +55,10 @@ public class UpdateTestCaseRequest {
     private Integer milestoneId;
 
     @JsonProperty("isManual")
-    private Boolean isManual;
+    private Integer isManual;
 
     @JsonProperty("isToBeAutomated")
-    private Boolean isToBeAutomated;
+    private Integer isToBeAutomated;
 
     @JsonProperty("status")
     private Integer status;

@@ -45,7 +45,7 @@ public class ProjectApiTest {
         DeleteProjectResponse deleteResponse = ProjectAdapter.deleteProject(projectCode);
         softAssert.assertTrue(
                 deleteResponse.getStatus(),
-                "An error occurred when deleting the project"
+                "Failed to delete project with code: " +projectCode
         );
         softAssert.assertAll();
     }
@@ -97,7 +97,7 @@ public class ProjectApiTest {
         softAssert.assertEquals(
                 createResponse.getErrorMessage(),
                 "Data is invalid.",
-                "The error message is different"
+                "Unexpected error message"
         );
         softAssert.assertAll();
     }
@@ -123,7 +123,7 @@ public class ProjectApiTest {
         softAssert.assertEquals(
                 createResponse.getErrorMessage(),
                 "Data is invalid.",
-                "The error message is different"
+                "Unexpected error message"
         );
         softAssert.assertAll();
     }

@@ -4,10 +4,7 @@ import api.client.ApiClient;
 import api.endpoints.Endpoints;
 import api.models.testcase.request.CreateTestCaseRequest;
 import api.models.testcase.request.UpdateTestCaseRequest;
-import api.models.testcase.response.CRUDTestCaseResponse;
-import api.models.testcase.response.DeleteTestCaseResponse;
-import api.models.testcase.response.GetAllCasesResponse;
-import api.models.testcase.response.GetSpecificTestCaseResponse;
+import api.models.testcase.response.*;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import java.util.Map;
@@ -35,7 +32,7 @@ public class TestCaseAdapter extends BaseAdapter {
     }
 
     @Step("API: Get specific test case by id from project")
-    public static GetSpecificTestCaseResponse getSpecificTestCase(String code, String id) {
+    public static GetSpecificTestCaseResponse getSpecificTestCase(String code, int id) {
         log.info("Getting specific test case through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .get(
@@ -60,7 +57,7 @@ public class TestCaseAdapter extends BaseAdapter {
         log.info("Creating valid test case through API");
         return ApiClient
                 .post(
-                        Endpoints.PROJECT_BY_CODE,
+                        Endpoints.CASE_BY_CODE,
                         Map.of("code", code),
                         bodyRequest
                 )
@@ -75,7 +72,7 @@ public class TestCaseAdapter extends BaseAdapter {
     }
 
     @Step("API: Update test case by id")
-    public static CRUDTestCaseResponse updateTestCase(String code, String id, UpdateTestCaseRequest bodyRequest) {
+    public static CRUDTestCaseResponse updateTestCase(String code, int id, UpdateTestCaseRequest bodyRequest) {
         log.info("Update test case through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .patch(
@@ -97,7 +94,7 @@ public class TestCaseAdapter extends BaseAdapter {
     }
 
     @Step("API: Delete test case by id")
-    public static DeleteTestCaseResponse deleteTestCase(String code, String id) {
+    public static DeleteTestCaseResponse deleteTestCase(String code, int id) {
         log.info("Deleting test case through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .delete(
@@ -117,19 +114,23 @@ public class TestCaseAdapter extends BaseAdapter {
                 .as(DeleteTestCaseResponse.class);
     }
 
-    @Step("API: Create invalid test case")
-    public static CRUDTestCaseResponse createInvalidTestCase(String code, CreateTestCaseRequest bodyRequest) {
-        log.info("Creating invalid test case through API");
+    @Step("API: Verify deleted test case returns 404 response")
+    public static DeleteErrorTestCaseResponse verifyDeletedTestCaseResponse(String projectCode, Integer id) {
+        log.info("Verify deleted test case with id [{}] returns 404", id);
         return ApiClient
-                .post(
-                        Endpoints.PROJECT_BY_CODE,
-                        Map.of("code", code),
-                        bodyRequest
+                .get(
+                        Endpoints.CASE_BY_CODE_ID,
+                        Map.of(
+                                "code", projectCode,
+                                "id", id
+                        )
                 )
                 .then()
-                .log().all()
-                .spec(UnprocessableEntity422)
+                .spec(notFound404)
+                .body(matchesJsonSchemaInClasspath(
+                        "schemas/delete_error_test_case_schema.json"
+                ))
                 .extract()
-                .as(CRUDTestCaseResponse.class);
+                .as(DeleteErrorTestCaseResponse.class);
     }
 }
