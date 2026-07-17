@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 public enum AccessType {
+
     ALL("all"),
     GROUP("group"),
     NONE("none");

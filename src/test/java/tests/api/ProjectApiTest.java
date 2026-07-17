@@ -1,11 +1,11 @@
 package tests.api;
 
 import api.adapters.ProjectAdapter;
-import api.models.projects.request.CreateProjectRequest;
-import api.models.projects.response.CreateProjectResponse;
-import api.models.projects.response.ErrorCreateProjectResponse;
-import api.models.projects.response.DeleteProjectResponse;
-import api.models.projects.response.GetProjectResponse;
+import api.models.project.request.CreateProjectRequest;
+import api.models.project.response.CreateProjectResponse;
+import api.models.project.response.ErrorCreateProjectResponse;
+import api.models.project.response.DeleteProjectResponse;
+import api.models.project.response.GetProjectResponse;
 import factory.ProjectFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;

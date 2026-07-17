@@ -1,6 +1,6 @@
 package factory;
 
-import api.models.projects.request.CreateProjectRequest;
+import api.models.project.request.CreateProjectRequest;
 import com.github.javafaker.Faker;
 import enums.AccessType;
 import enums.GroupType;
@@ -20,7 +20,7 @@ public class ProjectFactory {
                 .access(AccessType.random().getValue())
                 .group(GroupType.random().getValue())
                 .build();
-        log.info("Generated project with all fields: {}", project);
+        log.info("Generated project with all fields: [{}]", project);
         return project;
     }
 
@@ -30,7 +30,7 @@ public class ProjectFactory {
                 .code(FAKER.bothify("QA##"))
                 .access(AccessType.random().getValue())
                 .build();
-        log.info("Generated project with required fields only: {}", project);
+        log.info("Generated project with required fields only: [{}]", project);
         return project;
     }
 
@@ -40,7 +40,7 @@ public class ProjectFactory {
                 .access(AccessType.random().getValue())
                 .group(GroupType.random().getValue())
                 .build();
-        log.info("Generated project without required fields: {}", project);
+        log.info("Generated project without required fields: [{}]", project);
         return project;
     }
 
