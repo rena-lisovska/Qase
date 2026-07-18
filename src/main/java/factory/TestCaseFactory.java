@@ -5,7 +5,6 @@ import api.models.testcase.request.UpdateTestCaseRequest;
 import com.github.javafaker.Faker;
 import enums.*;
 import lombok.extern.log4j.Log4j2;
-
 import java.util.List;
 import java.util.Locale;
 

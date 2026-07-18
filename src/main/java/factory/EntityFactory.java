@@ -10,6 +10,4 @@ public class EntityFactory {
         CreateProjectResponse response = ProjectAdapter.createProject(request);
         return response.getResult().getCode();
     }
-
-
 }

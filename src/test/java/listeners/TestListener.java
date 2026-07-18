@@ -6,7 +6,6 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import utils.AllureUtils;
-
 import java.util.concurrent.TimeUnit;
 
 @Log4j2

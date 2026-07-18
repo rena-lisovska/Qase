@@ -10,9 +10,7 @@ import api.models.project.response.GetAllProjectsResponse;
 import api.models.project.response.GetProjectResponse;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-
 import java.util.Map;
-
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @Log4j2

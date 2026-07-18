@@ -7,16 +7,13 @@ import org.testng.annotations.BeforeMethod;
 import ui.pages.LoginPage;
 import ui.pages.ProjectsPage;
 import utils.PropertyReader;
-
 import java.util.HashMap;
-
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class BaseTest {
 
     protected LoginPage loginPage;
     protected ProjectsPage projectsPage;
-
     protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
     protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
 
