@@ -13,25 +13,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 @Log4j2
 public class TestCaseAdapter extends BaseAdapter {
 
-    @Step("API: Get all test case by project")
-    public static GetAllCasesResponse getAllTestCase(String code) {
-        log.info("Getting all test case through API by project's code [{}]", code);
-        return ApiClient
-                .get(
-                        Endpoints.CASE_BY_CODE,
-                        Map.of("code", code)
-                )
-                .then()
-                .log().all()
-                .spec(ok200)
-                .body(matchesJsonSchemaInClasspath(
-                        "schemas/get_all_test_case_schema.json"
-                ))
-                .extract()
-                .as(GetAllCasesResponse.class);
-    }
-
-    @Step("API: Get specific test case by id from project")
+    @Step("API: Get specific test case by id")
     public static GetSpecificTestCaseResponse getSpecificTestCase(String code, int id) {
         log.info("Getting specific test case through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
@@ -132,5 +114,23 @@ public class TestCaseAdapter extends BaseAdapter {
                 ))
                 .extract()
                 .as(DeleteErrorTestCaseResponse.class);
+    }
+
+    @Step("API: Get all test case by project")
+    public static GetAllCasesResponse getAllTestCase(String code) {
+        log.info("Getting all test case through API by project's code [{}]", code);
+        return ApiClient
+                .get(
+                        Endpoints.CASE_BY_CODE,
+                        Map.of("code", code)
+                )
+                .then()
+                .log().all()
+                .spec(ok200)
+                .body(matchesJsonSchemaInClasspath(
+                        "schemas/get_all_test_case_schema.json"
+                ))
+                .extract()
+                .as(GetAllCasesResponse.class);
     }
 }

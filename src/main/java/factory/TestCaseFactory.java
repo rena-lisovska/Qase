@@ -5,6 +5,7 @@ import api.models.testcase.request.UpdateTestCaseRequest;
 import com.github.javafaker.Faker;
 import enums.*;
 import lombok.extern.log4j.Log4j2;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -15,7 +16,7 @@ public class TestCaseFactory {
 
     public static CreateTestCaseRequest validTestCaseRq() {
         CreateTestCaseRequest testCase = CreateTestCaseRequest.builder()
-                .title("Verify AUTO test through API " + FAKER.bothify("API-??##"))
+                .title("Verify test case through API " + FAKER.bothify("API-??##"))
                 .description(FAKER.lorem().paragraph())
                 .preconditions(FAKER.lorem().sentence())
                 .postconditions(FAKER.lorem().sentence())
@@ -42,10 +43,12 @@ public class TestCaseFactory {
     }
 
     public static UpdateTestCaseRequest updateTestCaseRq(CreateTestCaseRequest source) {
-        return UpdateTestCaseRequest.builder()
+        UpdateTestCaseRequest testCase = UpdateTestCaseRequest.builder()
                 .title(source.getTitle() + " Updated")
                 .description(source.getDescription() + " Updated")
                 .severity(SeverityType.CRITICAL.getValue())
                 .build();
+        log.info("Generated updated test case: [{}]", testCase);
+        return testCase;
     }
 }
