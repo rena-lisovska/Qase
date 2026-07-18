@@ -3,6 +3,7 @@ package api.adapters;
 import api.client.ApiClient;
 import api.endpoints.Endpoints;
 import api.models.testsuite.request.CreateUpdateTestSuiteRequest;
+import api.models.testsuite.request.DeleteTestSuiteRequest;
 import api.models.testsuite.response.*;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -168,7 +169,7 @@ public class TestSuiteAdapter extends BaseAdapter {
                 )
                 .then()
                 .log().all()
-                .spec(badRequest400)
+                .spec(notFound404)
                 .body(matchesJsonSchemaInClasspath(
                         "schemas/get_error_specific_test_suite.json"
                 ))
@@ -177,7 +178,7 @@ public class TestSuiteAdapter extends BaseAdapter {
     }
 
     @Step("API: Delete test suite and move its cases to non-existent suite")
-    public static CRUDTestSuiteResponse incorrectDeleteTestSuite(String code, int id) {
+    public static ErrorDeleteTestSuiteResponse incorrectDeleteTestSuite(String code, int id, DeleteTestSuiteRequest bodyRequest) {
         log.info("Deleting test suite by id [{}] and moving its cases to existing test suite", id);
         return ApiClient
                 .delete(
@@ -185,15 +186,16 @@ public class TestSuiteAdapter extends BaseAdapter {
                         Map.of(
                                 "code", code,
                                 "id", id
-                        )
+                        ),
+                        bodyRequest
                 )
                 .then()
                 .log().all()
-                .spec(badRequest400)
+                .spec(notFound404)
                 .body(matchesJsonSchemaInClasspath(
                         "schemas/delete_error_test_suite_schema.json"
                 ))
                 .extract()
-                .as(CRUDTestSuiteResponse.class);
+                .as(ErrorDeleteTestSuiteResponse.class);
     }
 }

@@ -70,4 +70,14 @@ public class ApiClient extends BaseAdapter {
         .when()
                 .delete(endpoint);
     }
+
+    public static Response delete(String endpoint, Map<String, ?> pathParams, Object bodyRequest) {
+        return given()
+                .spec(spec)
+                .pathParams(pathParams)
+                .body(bodyRequest)
+                .log().all()
+        .when()
+                .delete(endpoint);
+    }
 }

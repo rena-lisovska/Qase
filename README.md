@@ -21,7 +21,8 @@ ___
   - [Retry Mechanism](#-retry-mechanism)
 - [Чек-лист API-тестирования](#-чек-лист-api-тестов)
   - [модуль "Project"](#модуль-project)
-  - модуль "Case"
+  - [модуль "Test Case"](#модуль-test-case)
+  - [модуль "Test Suite"](#модуль-test-suite)
 - Чек-лист UI тестов
   - Модуль Projects
   - Модуль Project Settings
@@ -139,11 +140,27 @@ Step-классы инкапсулируют последовательност�
 | №         | Тест-кейс                                      | Метод                       | Эндпоинт | Группа | Статус реализации |
 |-----------|------------------------------------------------|-----------------------------|----------|--------|-------------------|
 | API-02-01 | Create test case                               | POST                        | `/case/{code}` | Positive | ✔️ Done |
-| API-02-02 | Get test case                                  | GET                         | `/case/{code}/{id}` | Positive | ✔️ Done |
+| API-02-02 | Get test case by id                            | GET                         | `/case/{code}/{id}` | Positive | ✔️ Done |
 | API-02-03 | Update test case                               | PATCH                       | `/case/{code}/{id}` | Positive | ✔️ Done |
 | API-02-04 | Delete test case                               | DELETE                      | `/case/{code}/{id}` | Positive | ✔️ Done |
 | API-02-05 | Verify deleted test case                       | GET                       | `/case/{code}/{id}` | Positive | ✔️ Done |
 | API-02-06 | CRUD: create, get, update and delete test case | POST / GET / PATCH / DELETE | `/case/{code}` / `/case/{code}/{id}` | Positive | ✔️ Done |
+
+
+### Модуль "Test Suite"
+| №         | Тест-кейс                                  | Метод               | Эндпоинт | Группа | Статус реализации |
+|-----------|--------------------------------------------|---------------------|----------|--------|-------------------|
+| API-03-01 | Create test suite with all fields          | POST                | `/suite/{code}` | Positive | ✔️ Done |
+| API-03-02 | Create test suite without required fields  | POST                | `/suite/{code}` | Negative | ✔️ Done |
+| API-03-03 | Update test suite                          | PATCH                | `/suite/{code}/{id}` | Positive | ✔️ Done |
+| API-03-04 | Update test suite with incorrect parameter | PATCH                | `/suite/{code}/{id}` | Negative | ✔️ Done |
+| API-03-05 | Get test suite                             | GET                | `/suite/{code}/{id}` | Positive | ✔️ Done |
+| API-03-06 | Get test suite by non-existent id           | GET                | `/suite/{code}/{id}` | Negative | ✔️ Done |
+| API-03-07 | Delete test suite                          | DELETE                | `/suite/{code}/{id}` | Positive | ✔️ Done |
+| API-03-08 | Delete test suite with incorrect parameter | DELETE                | `/suite/{code}/{id}` | Negative | ✔️ Done |
+| API-03-09 | CRUD: create, get and delete test suite    | POST / GET / PATCH / DELETE | `/suite/{code}` / `/suite/{code}/{id}` | Positive | ✔️ Done |
+
+
 
 ## 📑 Чек-лист UI тестов
 https://docs.google.com/spreadsheets/d/15SvADCKblyJ6mzb4Zyr5w_LS91qAwvFPD-CtWx0lsJ4/edit?gid=0#gid=0
