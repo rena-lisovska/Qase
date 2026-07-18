@@ -24,7 +24,10 @@
           "type": "number"
         },
         "parent_id": {
-          "type": "number"
+          "type":  [
+            "integer",
+            "null"
+          ]
         },
         "created": {
           "type": "string"
