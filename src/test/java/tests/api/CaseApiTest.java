@@ -29,7 +29,7 @@ public class CaseApiTest {
     @Test(
             testName = "Create, get and delete test case with valid data",
             description = "Verifies that user can: create, get, update and delete test case",
-            groups = {"regression", "api"}
+            groups = {"regression", "api", "positive"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)

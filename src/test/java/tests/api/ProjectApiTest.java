@@ -16,7 +16,7 @@ public class ProjectApiTest {
     @Test(
             testName = "Create, get and delete project with valid data",
             description = "Verifies that user can: create project with valid data, get created project, delete project",
-            groups = {"regression", "api"}
+            groups = {"regression", "api", "positive"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
@@ -53,7 +53,7 @@ public class ProjectApiTest {
     @Test(
             testName = "Create project with only required fields",
             description = "Verifies that user can create project with only required fields",
-            groups = {"smoke", "api"}
+            groups = {"smoke", "api", "positive"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
@@ -79,7 +79,7 @@ public class ProjectApiTest {
     @Test(
             testName = "Create project without required fields",
             description = "Verifies that user can't create project without required fields",
-            groups = {"smoke", "api"}
+            groups = {"smoke", "api", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
@@ -105,7 +105,7 @@ public class ProjectApiTest {
     @Test(
             testName = "Create project with empty body",
             description = "Verifies that user can't create project with empty body",
-            groups = {"smoke", "api"}
+            groups = {"smoke", "api", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)

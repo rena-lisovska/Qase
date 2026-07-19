@@ -25,7 +25,7 @@ public class SuiteApiTest {
     @Test(
             testName = "Create, get and delete test suite with valid data",
             description = "Verifies that user can: create, get, update and delete test suite",
-            groups = {"regression", "api"}
+            groups = {"regression", "api", "positive"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
@@ -104,7 +104,7 @@ public class SuiteApiTest {
     @Test(
             testName = "Create test suite without title",
             description = "Verifies that user can't create test suite without title",
-            groups = {"regression", "api"}
+            groups = {"smoke", "api", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
@@ -135,7 +135,7 @@ public class SuiteApiTest {
     @Test(
             testName = "Get test suite by non-existent id",
             description = "Verifies that user can't get test suite by non-existent id",
-            groups = {"regression", "api"}
+            groups = {"smoke", "api", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.MINOR)
@@ -161,7 +161,7 @@ public class SuiteApiTest {
     @Test(
             testName = "Update test suite with incorrect parameter 'Parent Id'",
             description = "Verifies that user can's update test suite with incorrect parameter 'Parent Id'",
-            groups = {"regression", "api"}
+            groups = {"smoke", "api", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.MINOR)
@@ -195,7 +195,7 @@ public class SuiteApiTest {
     @Test(
             testName = "Delete test suite with incorrect parameter 'Destination Id'",
             description = "Verifies that user can's delete test suite with incorrect parameter 'Destination Id'",
-            groups = {"regression", "api"}
+            groups = {"smoke", "api", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.MINOR)

@@ -14,6 +14,7 @@ public class BaseTest {
 
     protected LoginPage loginPage;
     protected ProjectsPage projectsPage;
+
     protected String user = System.getProperty("user", PropertyReader.getProperty("user"));
     protected String password = System.getProperty("password", PropertyReader.getProperty("password"));
 
