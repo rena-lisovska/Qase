@@ -1,11 +1,13 @@
 package listeners;
 
+import com.codeborne.selenide.WebDriverRunner;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import utils.AllureUtils;
+
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
@@ -13,26 +15,33 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
-        log.info("======================================== STARTING TEST '{}' ========================================", iTestResult.getName());
+        log.info(
+                "======================================== STARTING TEST '{}' ========================================",
+                iTestResult.getName());
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
-        log.info("======================================== FINISHED TEST '{}' Duration: {} ========================================", iTestResult.getName(),
+        log.info(
+                "======================================== FINISHED TEST '{}' Duration: {} ========================================",
+                iTestResult.getName(),
                 getExecutionTime(iTestResult));
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
-        log.error("======================================== FAILED TEST '{}' Duration: {} ========================================", iTestResult.getName(),
+        log.error(
+                "======================================== FAILED TEST '{}' Duration: {} ========================================",
+                iTestResult.getName(),
                 getExecutionTime(iTestResult));
-        WebDriver driver = (WebDriver) iTestResult.getTestContext().getAttribute("driver");
-        AllureUtils.takeScreenshot(driver);
+        AllureUtils.attachScreenshotIfPossible();
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
-        log.warn("======================================== SKIPPING TEST '{}' ========================================", iTestResult.getName());
+        log.warn(
+                "======================================== SKIPPING TEST '{}' ========================================",
+                iTestResult.getName());
     }
 
     @Override
