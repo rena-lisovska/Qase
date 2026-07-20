@@ -10,11 +10,11 @@ import utils.PropertyReader;
 
 public class BaseAdapter {
 
-    public static final String TOKEN = System.getProperty("qase.token", PropertyReader.getProperty("qase.token"));
+    public static final String TOKEN = System.getProperty("API.token", PropertyReader.getProperty("API.token"));
 
     public static RequestSpecification spec = new RequestSpecBuilder()
-            .setBaseUri(PropertyReader.getProperty("qase.baseUri"))
-            .setBasePath(PropertyReader.getProperty("qase.basePath"))
+            .setBaseUri(PropertyReader.getProperty("API.baseUri"))
+            .setBasePath(PropertyReader.getProperty("API.basePath"))
             .setContentType(ContentType.JSON)
             .addHeader("Token", TOKEN)
             .addFilter(new AllureRestAssured())

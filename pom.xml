@@ -11,6 +11,7 @@
     <properties>
         <allure.version>2.35.3</allure.version>
         <allure-maven.version>2.15.0</allure-maven.version>
+        <allure-selenide.version>2.35.3</allure-selenide.version>
         <aspectj.version>1.9.20.1</aspectj.version>
         <faker.version>1.0.2</faker.version>
         <json-schema-validator.version>6.0.0</json-schema-validator.version>
@@ -22,9 +23,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <rest-assured.version>6.0.0</rest-assured.version>
         <selenide.version>7.16.2</selenide.version>
-        <selenium.version>4.43.0</selenium.version>
+        <selenium.version>4.44.0</selenium.version>
         <testng.version>7.12.0</testng.version>
-<!--        <suiteXmlFile>src/test/resources/FullTests.xml</suiteXmlFile>-->
+        <suiteXmlFile>src/test/resources/FullTests.xml</suiteXmlFile>
     </properties>
 
     <dependencyManagement>
@@ -65,6 +66,11 @@
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-selenide</artifactId>
+            <version>${allure-selenide.version}</version>
         </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>

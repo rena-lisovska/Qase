@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Cross Browser UI tests"
-       thread-count="2"
+       thread-count="3"
        parallel="classes">
 
     <listeners>
@@ -18,6 +18,13 @@
 
     <test name="Firefox browser UI tests">
         <parameter name="browser" value="firefox"/>
+        <packages>
+            <package name="tests.ui"/>
+        </packages>
+    </test>
+
+    <test name="Edge browser UI tests">
+        <parameter name="browser" value="edge"/>
         <packages>
             <package name="tests.ui"/>
         </packages>

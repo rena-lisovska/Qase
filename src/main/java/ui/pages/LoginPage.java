@@ -34,7 +34,10 @@ public class LoginPage extends BasePage {
     @Step("Positive login in system")
     public ProjectsPage login(String user, String password) {
         log.info("Login to Qase");
-        $(shadowCss("#accept", "#usercentrics-cmp-ui")).click();
+        if ($("usercentrics-cmp-ui").exists()) {
+            $(shadowCss("#accept", "#usercentrics-cmp-ui"))
+                    .click();
+        }
         $(LOGIN).setValue(user);
         $(PASSWORD).setValue(password);
         $(byText(SIGN_IN)).click();

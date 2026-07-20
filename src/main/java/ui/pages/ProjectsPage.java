@@ -36,8 +36,12 @@ public class ProjectsPage extends BasePage {
     public ProjectsPage createProject(String projectName, String projectCode) {
         log.info("Create project");
         $(byText(Elements.PROJECT_CREATE)).click();
-        $(PROJECT_NAME).setValue(projectName);
-        $(PROJECT_CODE).setValue(projectCode);
+        $(PROJECT_NAME)
+                .shouldBe(visible)
+                .setValue(projectName);
+        $(PROJECT_CODE)
+                .shouldBe(visible)
+                .setValue(projectCode);
         $(byText(Elements.PROJECT_CREATE)).click();
         return this;
     }
