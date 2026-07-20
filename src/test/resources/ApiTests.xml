@@ -6,8 +6,8 @@
        configfailurepolicy="continue">
 
     <listeners>
-        <listener class-name="listeners.TestListener"/>
-        <listener class-name="listeners.AnnotationTransformer"/>
+        <listener class-name="core.listeners.TestListener"/>
+        <listener class-name="core.listeners.AnnotationTransformer"/>
     </listeners>
 
     <test name="API positive tests">

@@ -6,7 +6,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import utils.PropertyReader;
+import core.utils.PropertyReader;
 
 public class BaseAdapter {
 

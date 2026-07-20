@@ -1,13 +1,14 @@
 package tests.ui;
 
-import configs.AllureConfig;
-import configs.BrowserConfig;
-import configs.TestConfig;
+import core.configs.AllureConfig;
+import core.configs.BrowserConfig;
+import core.configs.TestConfig;
 import io.qameta.allure.testng.AllureTestNg;
-import listeners.TestListener;
+import core.listeners.TestListener;
 import org.testng.annotations.*;
 import ui.pages.LoginPage;
 import ui.pages.ProjectsPage;
+
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @Listeners({AllureTestNg.class, TestListener.class})
@@ -24,10 +25,22 @@ public class BaseTest {
             description = "Configuration and launch browser"
     )
     public void setUp() {
+        configureEnvironment();
+        loadTestData();
+        initPageObjects();
+    }
+
+    protected void configureEnvironment() {
         AllureConfig.configure();
         BrowserConfig.configure(TestConfig.getBrowser());
+    }
+
+    protected void loadTestData() {
         user = TestConfig.getUser();
         password = TestConfig.getPassword();
+    }
+
+    protected void initPageObjects() {
         loginPage = new LoginPage();
         projectsPage = new ProjectsPage();
     }

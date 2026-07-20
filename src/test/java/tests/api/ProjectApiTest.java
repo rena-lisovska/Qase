@@ -6,7 +6,7 @@ import api.models.project.response.CreateProjectResponse;
 import api.models.project.response.ErrorCreateProjectResponse;
 import api.models.project.response.DeleteProjectResponse;
 import api.models.project.response.GetProjectResponse;
-import factory.ProjectFactory;
+import core.factory.ProjectFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
