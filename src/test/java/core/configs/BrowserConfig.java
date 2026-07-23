@@ -49,8 +49,8 @@ public class BrowserConfig {
                 "--incognito",
                 "--disable-notifications",
                 "--disable-popup-blocking",
-//                "--headless",
-//                "--window-size=1920,1080",
+                "--headless",
+                "--window-size=1920,1080",
                 "--disable-infobars");
         return options;
     }
