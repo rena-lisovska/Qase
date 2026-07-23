@@ -9,7 +9,6 @@ import java.util.HashMap;
 public class BrowserConfig {
 
     private BrowserConfig() {
-
     }
 
     public static void configure(String browser) {
@@ -46,12 +45,15 @@ public class BrowserConfig {
         chromePrefs.put("profile.password_manager_enabled", false);
         options.setExperimentalOption("prefs", chromePrefs);
         options.addArguments(
+                "--headless=new",
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
                 "--incognito",
                 "--disable-notifications",
                 "--disable-popup-blocking",
-                "--headless",
                 "--window-size=1920,1080",
                 "--disable-infobars");
+        options.setAcceptInsecureCerts(true);
         return options;
     }
 
@@ -63,6 +65,7 @@ public class BrowserConfig {
                 "--headless",
                 "--width=1920",
                 "--height=1080");
+        options.setAcceptInsecureCerts(true);
         return options;
     }
 
@@ -73,13 +76,14 @@ public class BrowserConfig {
         edgePrefs.put("profile.password_manager_enabled", false);
         options.setExperimentalOption("prefs", edgePrefs);
         options.addArguments(
+                "--headless=new",
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
                 "--inprivate",
                 "--disable-notifications",
                 "--disable-popup-blocking",
-                "--disable-infobars",
-                "--headless",
-                "--window-size=1920,1080"
-        );
+                "--window-size=1920,1080");
+        options.setAcceptInsecureCerts(true);
         return options;
     }
 }
