@@ -46,7 +46,6 @@ public class LoginPage extends BasePage {
     }
 
     public ProjectsPage login(String user, String password) {
-        log.info("Login with positive credentials");
         $(LOGIN_INPUT).setValue(user);
         $(PASSWORD_INPUT).setValue(password);
         $(byText(SIGN_IN_BUTTON)).click();
