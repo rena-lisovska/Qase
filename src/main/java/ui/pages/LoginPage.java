@@ -45,9 +45,11 @@ public class LoginPage extends BasePage {
         return this;
     }
 
+    @Step("Login with positive credentials")
     public ProjectsPage login(String user, String password) {
-        $(LOGIN_INPUT).getWrappedElement().sendKeys(user);
-        $(PASSWORD_INPUT).getWrappedElement().sendKeys(password);
+        log.info("Login with positive credentials");
+        $(LOGIN_INPUT).setValue(user);
+        $(PASSWORD_INPUT).setValue(password);
         $(byText(SIGN_IN_BUTTON)).click();
         return new ProjectsPage();
     }
