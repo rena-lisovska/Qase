@@ -16,7 +16,7 @@ public class BrowserConfig {
         Configuration.browser = browser;
         Configuration.baseUrl = TestConfig.getBaseUrl();
         Configuration.timeout = 30000;
-        Configuration.clickViaJs = false;
+        Configuration.clickViaJs = true;
 
         switch (browser) {
             case "chrome":

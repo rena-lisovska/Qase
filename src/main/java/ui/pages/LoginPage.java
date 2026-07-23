@@ -101,11 +101,8 @@ public class LoginPage extends BasePage {
 
     private void acceptCookies() {
         log.info("Accepting cookies");
-        SelenideElement cookieBanner = $("#usercentrics-cmp-ui");
-        SelenideElement cookieButton =
-                $(shadowCss(COOKIE_ACCEPT, COOKIE_BANNER));
-        log.info("Cookie banner exists: {}", cookieBanner.exists());
-        log.info("Cookie button exists: {}", cookieButton.exists());
+        SelenideElement cookieBanner = $(COOKIE_BANNER);
+        SelenideElement cookieButton = $(shadowCss(COOKIE_ACCEPT, COOKIE_BANNER));
         if (cookieButton.exists()) {
             cookieButton.shouldBe(visible).click();
             cookieBanner.should(disappear);
