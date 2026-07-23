@@ -16,6 +16,7 @@
             </run>
         </groups>
         <classes>
+            <class name="tests.ui.LoginTest"/>
             <class name="tests.ui.ProjectTest"/>
         </classes>
     </test>
@@ -27,6 +28,7 @@
             </run>
         </groups>
         <classes>
+            <class name="tests.ui.LoginTest"/>
             <class name="tests.ui.ProjectTest"/>
         </classes>
     </test>
