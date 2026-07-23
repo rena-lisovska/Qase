@@ -21,9 +21,13 @@ public class LoginTest extends BaseTest {
     @Feature("Login")
     @Story("User logs in with valid credentials")
     public void checkLoginSuccessful() {
+        LoginTestData loginData = LoginTestData.validCredentials();
         loginPage.openPage()
                 .isPageOpened()
-                .login(user, password);
+                .login(
+                        loginData.getUsername(),
+                        loginData.getPassword()
+                );
         projectsPage.isPageOpened();
     }
 
@@ -61,10 +65,10 @@ public class LoginTest extends BaseTest {
         String validPassword = PropertyReader.getProperty("password");
         return new Object[][]{
                 {
-                        new LoginTestData(validUser, "invalid_password_1234")
+                        LoginTestData.invalidCredentials(validUser, "invalid_password_1234")
                 },
                 {
-                        new LoginTestData("some_emailname@gmail.com", validPassword)
+                        LoginTestData.invalidCredentials("some_emailname@gmail.com", validPassword)
                 }
         };
     }
@@ -86,7 +90,8 @@ public class LoginTest extends BaseTest {
                 .isPageOpened()
                 .loginExpectingError(
                         loginData.getUsername(),
-                        loginData.getPassword());
+                        loginData.getPassword()
+                );
         loginPage.verifyNotMatchRecordsMessage();
     }
 

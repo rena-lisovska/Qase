@@ -1,5 +1,6 @@
 package core.data;
 
+import core.utils.PropertyReader;
 import lombok.Getter;
 
 @Getter
@@ -7,14 +8,32 @@ public class LoginTestData {
 
     private final String username;
     private final String password;
+    private final String description;
 
-    public LoginTestData(String username, String password) {
+    public LoginTestData(String username, String password, String description) {
         this.username = username;
         this.password = password;
+        this.description = description;
+    }
+
+    public static LoginTestData validCredentials() {
+        return new LoginTestData(
+                PropertyReader.getProperty("user"),
+                PropertyReader.getProperty("password"),
+                "Valid credentials"
+        );
+    }
+
+    public static LoginTestData invalidCredentials(String username, String password) {
+        return new LoginTestData(
+                username,
+                password,
+                "Invalid credentials"
+        );
     }
 
     @Override
     public String toString() {
-        return "Invalid credentials";
+        return description;
     }
 }

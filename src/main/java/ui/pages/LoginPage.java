@@ -4,6 +4,8 @@ import com.codeborne.selenide.SelenideElement;
 import ui.routes.UiRoutes;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+
+import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.shadowCss;
@@ -99,10 +101,14 @@ public class LoginPage extends BasePage {
 
     private void acceptCookies() {
         log.info("Accepting cookies");
-        if ($(shadowCss(COOKIE_ACCEPT, COOKIE_BANNER)).exists()) {
-            $(shadowCss(COOKIE_ACCEPT, COOKIE_BANNER))
-                    .shouldBe(visible)
-                    .click();
+        SelenideElement cookieBanner = $("#usercentrics-cmp-ui");
+        SelenideElement cookieButton =
+                $(shadowCss(COOKIE_ACCEPT, COOKIE_BANNER));
+        log.info("Cookie banner exists: {}", cookieBanner.exists());
+        log.info("Cookie button exists: {}", cookieButton.exists());
+        if (cookieButton.exists()) {
+            cookieButton.shouldBe(visible).click();
+            cookieBanner.should(disappear);
         }
     }
 
