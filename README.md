@@ -156,26 +156,26 @@ mvn clean test
 ```
 ```bash
 # Все UI-тесты
-mvn clean test -DsuiteXmlFile=src/test/resources/UiTests.xml
+mvn clean test -DsuiteXmlFile=src/test/resources/suites/UiTests.xml
 ```
 ```bash
 # Все API-тесты
-mvn clean test -DsuiteXmlFile=src/test/resources/ApiTests.xml
+mvn clean test -DsuiteXmlFile=src/test/resources/suites/ApiTests.xml
 ```
 ```bash
 # Smoke тестирование
-mvn clean test -DsuiteXmlFile=src/test/resources/SmokeTests.xml
+mvn clean test -DsuiteXmlFile=src/test/resources/suites/SmokeTests.xml
 ```
 ```bash
 # Regression тестирование
-mvn clean test -DsuiteXmlFile=src/test/resources/RegressionTests.xml
+mvn clean test -DsuiteXmlFile=src/test/resources/suites/RegressionTests.xml
 ```
 ```bash
 # Cross-browser тестирование
-mvn clean test -DsuiteXmlFile=src/test/resources/CrossBrowser.xml
+mvn clean test -DsuiteXmlFile=src/test/resources/suites/CrossBrowser.xml
 ```
 
-> Для локального запуска используется браузер, указанный в параметре browser файла config.properties. Набор CrossBrowser.xml выполняет тесты последовательно в браузерах Chrome, Edge и Firefox.
+> Для локального запуска используется браузер, указанный в параметре browser файла config.properties. Набор CrossBrowser.xml выполняет тесты в браузерах Chrome, Edge и Firefox.
 
 ### 3. Отчётность 
 После выполнения тестов можно сформировать Allure-отчёт.

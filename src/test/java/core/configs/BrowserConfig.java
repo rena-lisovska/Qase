@@ -16,8 +16,8 @@ public class BrowserConfig {
         browser = browser.toLowerCase();
         Configuration.browser = browser;
         Configuration.baseUrl = TestConfig.getBaseUrl();
-        Configuration.timeout = 10000;
-        Configuration.clickViaJs = true;
+        Configuration.timeout = 30000;
+        Configuration.clickViaJs = false;
 
         switch (browser) {
             case "chrome":
@@ -49,9 +49,9 @@ public class BrowserConfig {
                 "--incognito",
                 "--disable-notifications",
                 "--disable-popup-blocking",
-                "--disable-infobars",
-                "--headless",
-                "--window-size=1920,1080");
+//                "--headless",
+//                "--window-size=1920,1080",
+                "--disable-infobars");
         return options;
     }
 

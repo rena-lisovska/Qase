@@ -1,7 +1,7 @@
 package api.adapters;
 
 import api.client.ApiClient;
-import api.endpoints.Endpoints;
+import api.endpoints.ApiEndpoints;
 import api.models.testcase.request.CreateTestCaseRequest;
 import api.models.testcase.request.UpdateTestCaseRequest;
 import api.models.testcase.response.*;
@@ -18,7 +18,7 @@ public class TestCaseAdapter extends BaseAdapter {
         log.info("Getting specific test case through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .get(
-                        Endpoints.CASE_BY_CODE_ID,
+                        ApiEndpoints.CASE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id
@@ -39,7 +39,7 @@ public class TestCaseAdapter extends BaseAdapter {
         log.info("Creating valid test case through API");
         return ApiClient
                 .post(
-                        Endpoints.CASE_BY_CODE,
+                        ApiEndpoints.CASE_BY_CODE,
                         Map.of("code", code),
                         bodyRequest
                 )
@@ -58,7 +58,7 @@ public class TestCaseAdapter extends BaseAdapter {
         log.info("Update test case through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .patch(
-                        Endpoints.CASE_BY_CODE_ID,
+                        ApiEndpoints.CASE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id
@@ -80,7 +80,7 @@ public class TestCaseAdapter extends BaseAdapter {
         log.info("Deleting test case through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .delete(
-                        Endpoints.CASE_BY_CODE_ID,
+                        ApiEndpoints.CASE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id
@@ -101,7 +101,7 @@ public class TestCaseAdapter extends BaseAdapter {
         log.info("Verify deleted test case with id [{}] returns 404", id);
         return ApiClient
                 .get(
-                        Endpoints.CASE_BY_CODE_ID,
+                        ApiEndpoints.CASE_BY_CODE_ID,
                         Map.of(
                                 "code", projectCode,
                                 "id", id
@@ -121,7 +121,7 @@ public class TestCaseAdapter extends BaseAdapter {
         log.info("Getting all test case through API by project's code [{}]", code);
         return ApiClient
                 .get(
-                        Endpoints.CASE_BY_CODE,
+                        ApiEndpoints.CASE_BY_CODE,
                         Map.of("code", code)
                 )
                 .then()

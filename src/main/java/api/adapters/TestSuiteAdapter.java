@@ -1,7 +1,7 @@
 package api.adapters;
 
 import api.client.ApiClient;
-import api.endpoints.Endpoints;
+import api.endpoints.ApiEndpoints;
 import api.models.testsuite.request.CreateUpdateTestSuiteRequest;
 import api.models.testsuite.request.DeleteTestSuiteRequest;
 import api.models.testsuite.response.*;
@@ -18,7 +18,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Getting specific test suite through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .get(
-                        Endpoints.SUITE_BY_CODE_ID,
+                        ApiEndpoints.SUITE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id
@@ -39,7 +39,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Creating valid test suite through API");
         return ApiClient
                 .post(
-                        Endpoints.SUITE_BY_CODE,
+                        ApiEndpoints.SUITE_BY_CODE,
                         Map.of("code", code),
                         bodyRequest
                 )
@@ -58,7 +58,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Update test suite through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .patch(
-                        Endpoints.SUITE_BY_CODE_ID,
+                        ApiEndpoints.SUITE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id
@@ -81,7 +81,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Deleting test suite through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .delete(
-                        Endpoints.SUITE_BY_CODE_ID,
+                        ApiEndpoints.SUITE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id
@@ -102,7 +102,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Getting all test suite through API by project's code [{}]", code);
         return ApiClient
                 .get(
-                        Endpoints.SUITE_BY_CODE,
+                        ApiEndpoints.SUITE_BY_CODE,
                         Map.of("code", code)
                 )
                 .then()
@@ -120,7 +120,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Creating invalid test suite without title through API");
         return ApiClient
                 .post(
-                Endpoints.SUITE_BY_CODE,
+                ApiEndpoints.SUITE_BY_CODE,
                         Map.of("code", code),
                         bodyRequest
                 )
@@ -139,7 +139,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Incorrect update test suite through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .patch(
-                        Endpoints.SUITE_BY_CODE_ID,
+                        ApiEndpoints.SUITE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id
@@ -161,7 +161,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Getting non-existent test suite through API by id [{}] from project's code [{}]", id, code);
         return ApiClient
                 .get(
-                        Endpoints.SUITE_BY_CODE_ID,
+                        ApiEndpoints.SUITE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id
@@ -182,7 +182,7 @@ public class TestSuiteAdapter extends BaseAdapter {
         log.info("Deleting test suite by id [{}] and moving its cases to existing test suite", id);
         return ApiClient
                 .delete(
-                        Endpoints.SUITE_BY_CODE_ID,
+                        ApiEndpoints.SUITE_BY_CODE_ID,
                         Map.of(
                                 "code", code,
                                 "id", id

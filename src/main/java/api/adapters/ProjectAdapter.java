@@ -1,7 +1,7 @@
 package api.adapters;
 
 import api.client.ApiClient;
-import api.endpoints.Endpoints;
+import api.endpoints.ApiEndpoints;
 import api.models.project.request.CreateProjectRequest;
 import api.models.project.response.CreateProjectResponse;
 import api.models.project.response.ErrorCreateProjectResponse;
@@ -21,7 +21,7 @@ public class ProjectAdapter extends BaseAdapter {
         log.info("Getting project by code [{}] through API", code);
         return ApiClient
                 .get(
-                        Endpoints.PROJECT_BY_CODE,
+                        ApiEndpoints.PROJECT_BY_CODE,
                         Map.of("code", code)
                 )
                 .then()
@@ -39,7 +39,7 @@ public class ProjectAdapter extends BaseAdapter {
         log.info("Creating valid project through API");
         return ApiClient
                 .post(
-                        Endpoints.PROJECT,
+                        ApiEndpoints.PROJECT,
                         bodyRequest
                 )
                 .then()
@@ -57,7 +57,7 @@ public class ProjectAdapter extends BaseAdapter {
         log.info("Creating invalid project through API");
         return ApiClient
                 .post(
-                        Endpoints.PROJECT,
+                        ApiEndpoints.PROJECT,
                         bodyRequest
                 )
                 .then()
@@ -72,7 +72,7 @@ public class ProjectAdapter extends BaseAdapter {
         log.info("Deleting project through API by code [{}]", code);
         return ApiClient
                 .delete(
-                        Endpoints.PROJECT_BY_CODE,
+                        ApiEndpoints.PROJECT_BY_CODE,
                         Map.of("code", code)
                 )
                 .then()
@@ -89,7 +89,7 @@ public class ProjectAdapter extends BaseAdapter {
     public static GetAllProjectsResponse getAllProjects() {
         log.info("Getting all projects through API");
         return ApiClient
-                .get(Endpoints.PROJECT)
+                .get(ApiEndpoints.PROJECT)
                 .then()
                 .log().all()
                 .spec(ok200)

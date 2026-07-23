@@ -1,13 +1,14 @@
 package ui.pages;
 
+import ui.routes.UiRoutes;
 import ui.dict.Elements;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 import static ui.dict.Elements.PROJECTS_PAGE_TITLE;
 
 @Log4j2
@@ -17,17 +18,18 @@ public class ProjectsPage extends BasePage {
     private final String PROJECT_CODE = "#project-code";
 
     @Override
-    @Step("Opening the Projects page")
+    @Step("Open projects page")
     public ProjectsPage openPage() {
-        log.info("Open projects page");
-        open("/projects");
+        log.info("Opening the Projects page");
+        open(UiRoutes.PROJECTS);
         return this;
     }
 
     @Override
-    @Step("Projects page is opened")
+    @Step("Check that projects page is opened")
     public ProjectsPage isPageOpened() {
-        log.info("Projects page is opened");
+        log.info("Checking that projects page is opened");
+        webdriver().shouldHave(urlContaining(UiRoutes.PROJECTS));
         $(byText(PROJECTS_PAGE_TITLE)).shouldBe(visible);
         return this;
     }
@@ -35,14 +37,14 @@ public class ProjectsPage extends BasePage {
     @Step("Create new project")
     public ProjectsPage createProject(String projectName, String projectCode) {
         log.info("Create project");
-        $(byText(Elements.PROJECT_CREATE)).click();
+        $(byText(Elements.CREATE_NEW_PROJECT)).click();
         $(PROJECT_NAME)
                 .shouldBe(visible)
                 .setValue(projectName);
         $(PROJECT_CODE)
                 .shouldBe(visible)
                 .setValue(projectCode);
-        $(byText(Elements.PROJECT_CREATE)).click();
+        $(byText(Elements.CREATE_PROJECT)).click();
         return this;
     }
 

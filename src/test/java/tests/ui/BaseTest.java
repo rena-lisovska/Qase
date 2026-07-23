@@ -7,6 +7,7 @@ import io.qameta.allure.testng.AllureTestNg;
 import core.listeners.TestListener;
 import org.testng.annotations.*;
 import ui.pages.LoginPage;
+import ui.pages.ProjectPage;
 import ui.pages.ProjectsPage;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
@@ -16,6 +17,7 @@ public class BaseTest {
 
     protected LoginPage loginPage;
     protected ProjectsPage projectsPage;
+    protected ProjectPage projectPage;
 
     protected String user;
     protected String password;
@@ -43,6 +45,7 @@ public class BaseTest {
     protected void initPageObjects() {
         loginPage = new LoginPage();
         projectsPage = new ProjectsPage();
+        projectPage = new ProjectPage();
     }
 
     @AfterMethod(
