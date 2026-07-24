@@ -33,7 +33,7 @@ public class BaseTest {
     }
 
     protected void configureEnvironment() {
-        AllureConfig.configure();
+        AllureConfig.enableListener();
         BrowserConfig.configure(TestConfig.getBrowser());
     }
 

@@ -1,7 +1,6 @@
 package tests.ui;
 
 import core.data.LoginTestData;
-import core.utils.PropertyReader;
 import io.qameta.allure.*;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -12,8 +11,7 @@ public class LoginTest extends BaseTest {
     @Test(
             testName = "Login with valid credentials",
             description = "Verify that user can successfully log in with valid credentials",
-            groups = {"smoke", "regression"}
-
+            groups = {"smoke", "regression", "ui", "positive"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.BLOCKER)
@@ -44,8 +42,7 @@ public class LoginTest extends BaseTest {
             dataProvider = "emptyLoginFields",
             testName = "Login with empty required fields",
             description = "Verify that validation messages are displayed when user submits login form with empty required fields",
-            groups = {"regression"}
-
+            groups = {"regression", "ui", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
@@ -61,15 +58,9 @@ public class LoginTest extends BaseTest {
 
     @DataProvider(name = "invalidCredentials")
     public Object[][] invalidCredentials() {
-        String validUser = PropertyReader.getProperty("user");
-        String validPassword = PropertyReader.getProperty("password");
         return new Object[][]{
-                {
-                        LoginTestData.invalidCredentials(validUser, "invalid_password_1234")
-                },
-                {
-                        LoginTestData.invalidCredentials("some_emailname@gmail.com", validPassword)
-                }
+                {LoginTestData.invalidCredentialsWithUser()},
+                {LoginTestData.invalidCredentialsWithPassword()}
         };
     }
 
@@ -77,8 +68,7 @@ public class LoginTest extends BaseTest {
             dataProvider = "invalidCredentials",
             testName = "Login with invalid credentials",
             description = "Verify that user cannot log in with incorrect username or password",
-            groups = {"regression"}
-
+            groups = {"regression", "ui", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
@@ -98,8 +88,7 @@ public class LoginTest extends BaseTest {
     @Test(
             testName = "Remember me checkbox state",
             description = "Verify that user can enable and disable Remember me checkbox",
-            groups = {"regression"}
-
+            groups = {"regression", "ui", "positive"}
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)

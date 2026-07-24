@@ -24,11 +24,19 @@ public class LoginTestData {
         );
     }
 
-    public static LoginTestData invalidCredentials(String username, String password) {
+    public static LoginTestData invalidCredentialsWithUser() {
         return new LoginTestData(
-                username,
-                password,
-                "Invalid credentials"
+                "some_emailname@gmail.com",
+                PropertyReader.getProperty("password"),
+                "Invalid credentials: email"
+        );
+    }
+
+    public static LoginTestData invalidCredentialsWithPassword() {
+        return new LoginTestData(
+                PropertyReader.getProperty("user"),
+                "invalid_password_1234",
+                "Invalid credentials: password"
         );
     }
 

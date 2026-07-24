@@ -1,10 +1,10 @@
 package ui.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import core.utils.SecureSelenide;
 import ui.routes.UiRoutes;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-
 import static com.codeborne.selenide.Condition.disappear;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -48,8 +48,8 @@ public class LoginPage extends BasePage {
     @Step("Login with positive credentials")
     public ProjectsPage login(String user, String password) {
         log.info("Login with positive credentials");
-        $(LOGIN_INPUT).setValue(user);
-        $(PASSWORD_INPUT).setValue(password);
+        SecureSelenide.setSecretValue($(LOGIN_INPUT), user);
+        SecureSelenide.setSecretValue($(PASSWORD_INPUT), password);
         $(byText(SIGN_IN_BUTTON)).click();
         return new ProjectsPage();
     }
@@ -57,8 +57,8 @@ public class LoginPage extends BasePage {
     @Step("Attempt login with invalid credentials")
     public LoginPage loginExpectingError(String user, String password) {
         log.info("Attempting login with invalid credentials");
-        $(LOGIN_INPUT).setValue(user);
-        $(PASSWORD_INPUT).setValue(password);
+        SecureSelenide.setSecretValue($(LOGIN_INPUT), user);
+        SecureSelenide.setSecretValue($(PASSWORD_INPUT), password);
         $(byText(SIGN_IN_BUTTON)).click();
         return this;
     }
