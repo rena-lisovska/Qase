@@ -9,13 +9,11 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
+import static ui.dict.Elements.CREATE_NEW_PROJECT;
 import static ui.dict.Elements.PROJECTS_PAGE_TITLE;
 
 @Log4j2
 public class ProjectsPage extends BasePage {
-
-    private final String PROJECT_NAME = "#project-name";
-    private final String PROJECT_CODE = "#project-code";
 
     @Override
     @Step("Open projects page")
@@ -34,18 +32,11 @@ public class ProjectsPage extends BasePage {
         return this;
     }
 
-    @Step("Create new project")
-    public ProjectsPage createProject(String projectName, String projectCode) {
-        log.info("Create project");
-        $(byText(Elements.CREATE_NEW_PROJECT)).click();
-        $(PROJECT_NAME)
-                .shouldBe(visible)
-                .setValue(projectName);
-        $(PROJECT_CODE)
-                .shouldBe(visible)
-                .setValue(projectCode);
-        $(byText(Elements.CREATE_PROJECT)).click();
-        return this;
+    @Step("Click create new project button")
+    public CreateProjectModal clickCreateProject() {
+        $(byText(CREATE_NEW_PROJECT))
+                .click();
+        return new CreateProjectModal();
     }
 
     @Step("Checking the project for existence")

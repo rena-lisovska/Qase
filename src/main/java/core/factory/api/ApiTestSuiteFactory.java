@@ -1,4 +1,4 @@
-package core.factory;
+package core.factory.api;
 
 import api.models.testsuite.request.CreateUpdateTestSuiteRequest;
 import api.models.testsuite.request.DeleteTestSuiteRequest;
@@ -7,7 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import java.util.Locale;
 
 @Log4j2
-public class TestSuiteFactory {
+public class ApiTestSuiteFactory {
 
     private static final Faker FAKER = new Faker(Locale.ENGLISH);
 

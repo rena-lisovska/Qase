@@ -20,13 +20,10 @@ public class LoginTest extends BaseTest {
     @Story("User logs in with valid credentials")
     public void checkLoginSuccessful() {
         LoginTestData loginData = LoginTestData.validCredentials();
-        loginPage.openPage()
-                .isPageOpened()
-                .login(
-                        loginData.getUsername(),
-                        loginData.getPassword()
-                );
-        projectsPage.isPageOpened();
+        loginStep.authorize(
+                loginData.getUsername(),
+                loginData.getPassword()
+        );
     }
 
     @DataProvider(name = "emptyLoginFields")

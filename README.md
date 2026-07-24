@@ -25,11 +25,12 @@ ___
     - [модуль "Project"](#модуль-project)
     - [модуль "Test Case"](#модуль-test-case)
     - [модуль "Test Suite"](#модуль-test-suite)
-- Чек-лист UI тестов
-    - Модуль Projects
-    - Модуль Project Settings
-    - Модуль ...
-    - Модуль ...
+- [Чек-лист UI тестов](#-чек-лист-ui-тестов)
+    - [модуль "Authorization" (login)](#модуль-authorization)
+    - модуль "Projects"
+    - модуль "Project Settings"
+    - модуль ...
+    - модуль ...
 - Чек-лист интеграционных тестов (UI + API)
 
 ___

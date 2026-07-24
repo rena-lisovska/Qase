@@ -8,8 +8,8 @@ import api.models.testcase.response.CRUDTestCaseResponse;
 import api.models.testcase.response.DeleteErrorTestCaseResponse;
 import api.models.testcase.response.DeleteTestCaseResponse;
 import api.models.testcase.response.GetSpecificTestCaseResponse;
-import core.factory.TestCaseFactory;
-import core.factory.EntityFactory;
+import core.factory.api.ApiTestCaseFactory;
+import core.factory.api.ApiEntityFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -23,7 +23,7 @@ public class CaseApiTest {
 
     @BeforeMethod
     public void setUpProject() {
-        projectCode = EntityFactory.createProjectCode();
+        projectCode = ApiEntityFactory.createProjectCode();
     }
 
     @Test(
@@ -38,7 +38,7 @@ public class CaseApiTest {
     @Story("CRUD operations on test case with all fields")
     public void checkCRUDTestCase() {
         SoftAssert softAssert = new SoftAssert();
-        CreateTestCaseRequest createRequest = TestCaseFactory.validTestCaseRq();
+        CreateTestCaseRequest createRequest = ApiTestCaseFactory.validTestCaseRq();
         CRUDTestCaseResponse createResponse = TestCaseAdapter.createTestCase(projectCode, createRequest);
         softAssert.assertTrue(
                 createResponse.getStatus(),
@@ -70,7 +70,7 @@ public class CaseApiTest {
                 createRequest.getSeverity(),
                 "The value in Severity does not match"
         );
-        UpdateTestCaseRequest updateRequest = TestCaseFactory.updateTestCaseRq(createRequest);
+        UpdateTestCaseRequest updateRequest = ApiTestCaseFactory.updateTestCaseRq(createRequest);
         CRUDTestCaseResponse updateResponse = TestCaseAdapter.updateTestCase(projectCode, testCaseId, updateRequest);
         softAssert.assertTrue(
                 updateResponse.getStatus(),

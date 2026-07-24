@@ -1,4 +1,4 @@
-package core.factory;
+package core.factory.api;
 
 import api.models.testcase.request.CreateTestCaseRequest;
 import api.models.testcase.request.UpdateTestCaseRequest;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Log4j2
-public class TestCaseFactory {
+public class ApiTestCaseFactory {
 
     private static final Faker FAKER = new Faker(Locale.ENGLISH);
 

@@ -9,6 +9,7 @@ import org.testng.annotations.*;
 import ui.pages.LoginPage;
 import ui.pages.ProjectPage;
 import ui.pages.ProjectsPage;
+import ui.steps.LoginStep;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -16,6 +17,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class BaseTest {
 
     protected LoginPage loginPage;
+    protected LoginStep loginStep;
     protected ProjectsPage projectsPage;
     protected ProjectPage projectPage;
 
@@ -44,6 +46,7 @@ public class BaseTest {
 
     protected void initPageObjects() {
         loginPage = new LoginPage();
+        loginStep = new LoginStep();
         projectsPage = new ProjectsPage();
         projectPage = new ProjectPage();
     }

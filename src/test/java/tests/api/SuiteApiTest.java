@@ -5,8 +5,8 @@ import api.adapters.TestSuiteAdapter;
 import api.models.testsuite.request.CreateUpdateTestSuiteRequest;
 import api.models.testsuite.request.DeleteTestSuiteRequest;
 import api.models.testsuite.response.*;
-import core.factory.EntityFactory;
-import core.factory.TestSuiteFactory;
+import core.factory.api.ApiEntityFactory;
+import core.factory.api.ApiTestSuiteFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -19,7 +19,7 @@ public class SuiteApiTest {
 
     @BeforeMethod
     public void setUpProject() {
-        projectCode = EntityFactory.createProjectCode();
+        projectCode = ApiEntityFactory.createProjectCode();
     }
 
     @Test(
@@ -34,7 +34,7 @@ public class SuiteApiTest {
     @Story("CRUD operations on test suite with all fields")
     public void checkCRUDTestSuite() {
         SoftAssert softAssert = new SoftAssert();
-        CreateUpdateTestSuiteRequest createRequest = TestSuiteFactory.validTestSuiteRq();
+        CreateUpdateTestSuiteRequest createRequest = ApiTestSuiteFactory.validTestSuiteRq();
         CRUDTestSuiteResponse createResponse = TestSuiteAdapter.createTestSuite(projectCode, createRequest);
         softAssert.assertTrue(
                 createResponse.getStatus(),
@@ -66,7 +66,7 @@ public class SuiteApiTest {
                 createRequest.getPreconditions(),
                 "Preconditions does not match"
         );
-        CreateUpdateTestSuiteRequest updateRequest = TestSuiteFactory.updateTestSuiteRq(createRequest);
+        CreateUpdateTestSuiteRequest updateRequest = ApiTestSuiteFactory.updateTestSuiteRq(createRequest);
         CRUDTestSuiteResponse updateResponse = TestSuiteAdapter.updateTestSuite(projectCode, testSuiteId, updateRequest);
         softAssert.assertTrue(
                 updateResponse.getStatus(),
@@ -113,7 +113,7 @@ public class SuiteApiTest {
     @Story("Create test suite without title")
     public void checkCreateTestSuiteWithoutTitle() {
         SoftAssert softAssert = new SoftAssert();
-        CreateUpdateTestSuiteRequest createRequest = TestSuiteFactory.invalidTestSuiteRq();
+        CreateUpdateTestSuiteRequest createRequest = ApiTestSuiteFactory.invalidTestSuiteRq();
         ErrorCreateTestSuiteResponse createResponse = TestSuiteAdapter.createInvalidTestSuite(projectCode, createRequest);
         softAssert.assertFalse(
                 createResponse.getStatus(),
@@ -170,14 +170,14 @@ public class SuiteApiTest {
     @Story("Update test suite with incorrect parameter 'Parent Id'")
     public void checkUpdateTestSuiteWithIncorrectData() {
         SoftAssert softAssert = new SoftAssert();
-        CreateUpdateTestSuiteRequest createRequest = TestSuiteFactory.validTestSuiteRq();
+        CreateUpdateTestSuiteRequest createRequest = ApiTestSuiteFactory.validTestSuiteRq();
         CRUDTestSuiteResponse createResponse = TestSuiteAdapter.createTestSuite(projectCode, createRequest);
         softAssert.assertNotNull(
                 createResponse.getResult().getId(),
                 "ID is missing or generated incorrectly"
         );
         Integer testSuiteId = createResponse.getResult().getId();
-        CreateUpdateTestSuiteRequest updateRequest = TestSuiteFactory.invalidUpdateTestSuiteRq(createRequest);
+        CreateUpdateTestSuiteRequest updateRequest = ApiTestSuiteFactory.invalidUpdateTestSuiteRq(createRequest);
         ErrorUpdateTestSuiteResponse updateResponse = TestSuiteAdapter.incorrectUpdateTestSuite(projectCode, testSuiteId, updateRequest);
         ErrorField titleError = updateResponse.getErrorFields()
                 .stream()
@@ -204,14 +204,14 @@ public class SuiteApiTest {
     @Story("Delete test suite with incorrect parameter 'Destination Id''")
     public void checkDeleteTestSuiteWithNonExistingDestinationId() {
         SoftAssert softAssert = new SoftAssert();
-        CreateUpdateTestSuiteRequest createRequest = TestSuiteFactory.validTestSuiteRq();
+        CreateUpdateTestSuiteRequest createRequest = ApiTestSuiteFactory.validTestSuiteRq();
         CRUDTestSuiteResponse createResponse = TestSuiteAdapter.createTestSuite(projectCode, createRequest);
         softAssert.assertNotNull(
                 createResponse.getResult().getId(),
                 "ID is missing or generated incorrectly"
         );
         Integer testSuiteId = createResponse.getResult().getId();
-        DeleteTestSuiteRequest deleteRequest = TestSuiteFactory.invalidDeleteTestSuiteRq();
+        DeleteTestSuiteRequest deleteRequest = ApiTestSuiteFactory.invalidDeleteTestSuiteRq();
         ErrorDeleteTestSuiteResponse deleteResponse = TestSuiteAdapter.incorrectDeleteTestSuite(projectCode, testSuiteId, deleteRequest);
         softAssert.assertFalse(
                 deleteResponse.getStatus(),

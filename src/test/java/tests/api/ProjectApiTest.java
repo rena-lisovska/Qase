@@ -6,7 +6,7 @@ import api.models.project.response.CreateProjectResponse;
 import api.models.project.response.ErrorCreateProjectResponse;
 import api.models.project.response.DeleteProjectResponse;
 import api.models.project.response.GetProjectResponse;
-import core.factory.ProjectFactory;
+import core.factory.api.ApiProjectFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -25,7 +25,7 @@ public class ProjectApiTest {
     @Story("CRUD operations on project with all fields")
     public void checkCRUDProject() {
         SoftAssert softAssert = new SoftAssert();
-        CreateProjectRequest request = ProjectFactory.validProjectRq();
+        CreateProjectRequest request = ApiProjectFactory.validProjectRq();
         CreateProjectResponse createResponse = ProjectAdapter.createProject(request);
         softAssert.assertTrue(
                 createResponse.getStatus(),
@@ -62,7 +62,7 @@ public class ProjectApiTest {
     @Story("Create project with only required fields")
     public void createProjectWithRequiredFields() {
         SoftAssert softAssert = new SoftAssert();
-        CreateProjectRequest request = ProjectFactory.minimalProjectRq();
+        CreateProjectRequest request = ApiProjectFactory.minimalProjectRq();
         CreateProjectResponse createResponse = ProjectAdapter.createProject(request);
         softAssert.assertTrue(
                 createResponse.getStatus(),
@@ -88,7 +88,7 @@ public class ProjectApiTest {
     @Story("Create project without required fields")
     public void createProjectWithoutRequiredFields() {
         SoftAssert softAssert = new SoftAssert();
-        CreateProjectRequest request = ProjectFactory.invalidProjectRq();
+        CreateProjectRequest request = ApiProjectFactory.invalidProjectRq();
         ErrorCreateProjectResponse createResponse = ProjectAdapter.createInvalidProject(request);
         softAssert.assertFalse(
                 createResponse.getStatus(),
@@ -114,7 +114,7 @@ public class ProjectApiTest {
     @Story("Create project with empty body")
     public void createProjectWithEmptyBody() {
         SoftAssert softAssert = new SoftAssert();
-        CreateProjectRequest request = ProjectFactory.emptyProjectRq();
+        CreateProjectRequest request = ApiProjectFactory.emptyProjectRq();
         ErrorCreateProjectResponse createResponse = ProjectAdapter.createInvalidProject(request);
         softAssert.assertFalse(
                 createResponse.getStatus(),

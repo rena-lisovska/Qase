@@ -1,4 +1,4 @@
-package core.factory;
+package core.factory.api;
 
 import api.models.project.request.CreateProjectRequest;
 import com.github.javafaker.Faker;
@@ -8,7 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import java.util.Locale;
 
 @Log4j2
-public class ProjectFactory {
+public class ApiProjectFactory {
 
     private static final Faker FAKER = new Faker(Locale.ENGLISH);
 
