@@ -29,8 +29,8 @@ public class SuiteApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
-    @Epic("Qase_01")
-    @Feature("TestSuite")
+    @Epic("Test Suites")
+    @Feature("Test Suite API")
     @Story("CRUD operations on test suite with all fields")
     public void checkCRUDTestSuite() {
         SoftAssert softAssert = new SoftAssert();
@@ -108,8 +108,8 @@ public class SuiteApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
-    @Epic("Qase_01")
-    @Feature("TestSuite")
+    @Epic("Test Suites")
+    @Feature("Test Suite API")
     @Story("Create test suite without title")
     public void checkCreateTestSuiteWithoutTitle() {
         SoftAssert softAssert = new SoftAssert();
@@ -139,8 +139,8 @@ public class SuiteApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.MINOR)
-    @Epic("Qase_01")
-    @Feature("TestSuite")
+    @Epic("Test Suites")
+    @Feature("Test Suite API")
     @Story("Get test suite by non-existent id")
     public void checkGetTestSuiteByNonExistentId() {
         SoftAssert softAssert = new SoftAssert();
@@ -165,8 +165,8 @@ public class SuiteApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.MINOR)
-    @Epic("Qase_01")
-    @Feature("TestSuite")
+    @Epic("Test Suites")
+    @Feature("Test Suite API")
     @Story("Update test suite with incorrect parameter 'Parent Id'")
     public void checkUpdateTestSuiteWithIncorrectData() {
         SoftAssert softAssert = new SoftAssert();
@@ -199,8 +199,8 @@ public class SuiteApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.MINOR)
-    @Epic("Qase_01")
-    @Feature("TestSuite")
+    @Epic("Test Suites")
+    @Feature("Test Suite API")
     @Story("Delete test suite with incorrect parameter 'Destination Id''")
     public void checkDeleteTestSuiteWithNonExistingDestinationId() {
         SoftAssert softAssert = new SoftAssert();

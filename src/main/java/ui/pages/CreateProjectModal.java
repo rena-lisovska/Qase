@@ -8,26 +8,27 @@ import ui.wrappers.Input;
 import ui.wrappers.RadioButton;
 import ui.wrappers.TextArea;
 
+import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 import static ui.dict.Elements.*;
 
 @Log4j2
 public class CreateProjectModal {
+
     private final Input projectName = new Input($("#project-name"), "Project name");
     private final Input projectCode = new Input($("#project-code"), "Project code");
     private final TextArea description = new TextArea($("#description-area"), "Description");
-    private final RadioButton privateAccess = new RadioButton($("input[value='private']"), "Private");
-    private final RadioButton publicAccess = new RadioButton($("input[value='public']"), "Public");
-    private final RadioButton memberAll = new RadioButton($("input[value='all']"), "Add all members to this project");
-    private final RadioButton memberGroup = new RadioButton($("input[value='group']"), "Group access");
-    private final RadioButton memberNone = new RadioButton($("input[value='none']"), "Don't add members");
+    private final RadioButton privateAccess = new RadioButton($x("//input[@value='private']/ancestor::label"), "Private");
+    private final RadioButton publicAccess = new RadioButton($x("//input[@value='public']/ancestor::label"), "Public");
+    private final RadioButton memberAll = new RadioButton($x("//input[@value='all']/ancestor::label"), "Add all members");
+    private final RadioButton memberGroup = new RadioButton($x("//input[@value='group']/ancestor::label"), "Group access");
+    private final RadioButton memberNone = new RadioButton($x("//input[@value='none']/ancestor::label"), "Don't add members");
     private final ComboBox chooseGroup = new ComboBox($x("//label[normalize-space()='Choose a group']/following::div[@role='combobox'][1]"), "Choose a group");
 
     @Step("Check that create project modal is opened")
-    public CreateProjectModal shouldBeOpened() {
+    public CreateProjectModal isModalOpened() {
         log.info("Checking that create project modal is opened");
         $(byText(CREATE_PROJECT_BUTTON)).shouldBe(visible);
         $(byText(CANCEL_BUTTON)).shouldBe(visible);
@@ -47,28 +48,48 @@ public class CreateProjectModal {
         return this;
     }
 
-    @Step("Create project")
-    public ProjectPage clickCreate() {
+    @Step("Click 'Create project'")
+    public CreateProjectModal clickCreate() {
         log.info("Click create project button");
         $(byText(CREATE_PROJECT_BUTTON)).click();
-        return new ProjectPage();
+        return this;
     }
 
     @Step("Cancel project creation")
     public ProjectsPage clickCancel() {
         log.info("Cancel project creation");
-        $(byText(CANCEL_BUTTON)).click();
-        return new ProjectsPage();
+        $(byText(CANCEL_BUTTON)).shouldBe(enabled).click();
+        $(byText(CANCEL_BUTTON)).shouldNotBe(visible);
+        return new ProjectsPage().isPageOpened();
+    }
+
+    @Step("Verify project creation failed and modal stays open")
+    public CreateProjectModal verifyCreationFailed(Project project) {
+        log.info("Verify project creation failed for project: {}", project);
+        $(byText(CREATE_PROJECT_BUTTON)).shouldBe(visible);
+        if (project.getName() != null) {
+            org.testng.Assert.assertEquals(
+                    projectName.getValue(),
+                    project.getName(),
+                    "Project name should remain in input field"
+            );
+        }
+        if (project.getCode() != null) {
+            org.testng.Assert.assertEquals(
+                    projectCode.getValue(),
+                    project.getCode(),
+                    "Project code should remain in input field"
+            );
+        }
+        return this;
     }
 
     private void selectAccessType(Project project) {
         if (project.getAccessType() == null) {
             return;
         }
-        switch (project.getAccessType()) {
-            case "private" -> privateAccess.select();
-            case "public" -> publicAccess.select();
-            default -> throw new IllegalArgumentException("Unknown access type: " + project.getAccessType());
+        if ("public".equals(project.getAccessType())) {
+            publicAccess.select();
         }
     }
 
@@ -77,7 +98,6 @@ public class CreateProjectModal {
             return;
         }
         switch (project.getMemberAccess()) {
-            case "all" -> memberAll.select();
             case "group" -> {
                 memberGroup.select();
                 if (project.getGroup() != null) {
@@ -85,8 +105,10 @@ public class CreateProjectModal {
                 }
             }
             case "none" -> memberNone.select();
-            default -> throw new IllegalArgumentException("Unknown member access: " + project.getMemberAccess());
+            case "all" -> {
+            }
+            default -> throw new IllegalArgumentException(
+                    "Unknown member access: " + project.getMemberAccess());
         }
     }
-
 }

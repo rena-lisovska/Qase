@@ -20,8 +20,8 @@ public class ProjectApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
-    @Epic("Qase_01")
-    @Feature("Project")
+    @Epic("Projects")
+    @Feature("Project API")
     @Story("CRUD operations on project with all fields")
     public void checkCRUDProject() {
         SoftAssert softAssert = new SoftAssert();
@@ -57,8 +57,8 @@ public class ProjectApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
-    @Epic("Qase_01")
-    @Feature("Project")
+    @Epic("Projects")
+    @Feature("Project API")
     @Story("Create project with only required fields")
     public void createProjectWithRequiredFields() {
         SoftAssert softAssert = new SoftAssert();
@@ -83,8 +83,8 @@ public class ProjectApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
-    @Epic("Qase_01")
-    @Feature("Project")
+    @Epic("Projects")
+    @Feature("Project API")
     @Story("Create project without required fields")
     public void createProjectWithoutRequiredFields() {
         SoftAssert softAssert = new SoftAssert();
@@ -109,8 +109,8 @@ public class ProjectApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
-    @Epic("Qase_01")
-    @Feature("Project")
+    @Epic("Projects")
+    @Feature("Project API")
     @Story("Create project with empty body")
     public void createProjectWithEmptyBody() {
         SoftAssert softAssert = new SoftAssert();

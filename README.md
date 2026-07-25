@@ -27,7 +27,7 @@ ___
     - [модуль "Test Suite"](#модуль-test-suite)
 - [Чек-лист UI тестов](#-чек-лист-ui-тестов)
     - [модуль "Authorization" (login)](#модуль-authorization)
-    - модуль "Projects"
+    - [модуль "Projects"](#модуль-projects)
     - модуль "Project Settings"
     - модуль ...
     - модуль ...
@@ -283,7 +283,21 @@ mvn allure:report
 | UI-01-03 | Login with invalid credentials   | Negative | ✔️ Done           |
 | UI-01-04 | Remember me checkbox state       | Positive | ✔️ Done           |
 
+### Модуль "Projects"
 
+| №        | Тест-кейс                              | Группа   | Статус реализации |
+|----------|----------------------------------------|----------|-------------------|
+| UI-02-01 | Create project with required fields    | Positive | ✔️ Done           |
+| UI-02-02 | Create project with all fields         | Positive | ✔️ Done           |
+| UI-02-03 | Create public project                  | Positive | ✔️ Done           |
+| UI-02-04 | Create project with group access       | Positive | ✔️ Done           |
+| UI-02-05 | Create project without members         | Positive | ✔️ Done           |
+| UI-02-06 | Create project without name            | Negative | ✔️ Done           |
+| UI-02-07 | Create project without code            | Negative | ✔️ Done           |
+| UI-02-08 | Create project without group selection | Negative | ✔️ Done           |
+| UI-02-09 | Create empty project                   | Negative | ✔️ Done           |
+| UI-02-10 | Cancel project creation                | Negative | ✔️ Done           |
+| UI-02-11 | Delete project                         | Positive | ✔️ Done           |
 
 
 ## 📑 Чек-лист интеграционных тестов (UI + API)

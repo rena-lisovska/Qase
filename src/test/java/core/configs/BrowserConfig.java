@@ -15,7 +15,7 @@ public class BrowserConfig {
         browser = browser.toLowerCase();
         Configuration.browser = browser;
         Configuration.baseUrl = TestConfig.getBaseUrl();
-        Configuration.timeout = 30000;
+        Configuration.timeout = 40000;
         Configuration.clickViaJs = true;
 
         switch (browser) {

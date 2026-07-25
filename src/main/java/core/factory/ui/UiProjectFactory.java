@@ -90,6 +90,7 @@ public class UiProjectFactory {
                 .code(FAKER.bothify("QA##"))
                 .accessType("private")
                 .memberAccess("group")
+                .group(null)
                 .build();
         log.info("Generated project with group access without group selected: [{}]", project);
         return project;

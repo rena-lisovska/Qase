@@ -33,8 +33,8 @@ public class CaseApiTest {
     )
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
-    @Epic("Qase_01")
-    @Feature("TestCase")
+    @Epic("Test Cases")
+    @Feature("Test Case API")
     @Story("CRUD operations on test case with all fields")
     public void checkCRUDTestCase() {
         SoftAssert softAssert = new SoftAssert();

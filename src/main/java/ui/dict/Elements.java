@@ -8,6 +8,4 @@ public class Elements {
     public static final String CANCEL_BUTTON = "Cancel";
     public static final String LOGIN_PAGE_TITLE = "Log in to your account";
     public static final String PROJECTS_PAGE_TITLE = "Projects";
-
-
 }

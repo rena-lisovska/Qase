@@ -1,9 +1,9 @@
 package ui.pages;
 
 import ui.routes.UiRoutes;
-import ui.dict.Elements;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -34,26 +34,29 @@ public class ProjectsPage extends BasePage {
 
     @Step("Click create new project button")
     public CreateProjectModal clickCreateProject() {
-        $(byText(CREATE_NEW_PROJECT))
-                .click();
+        $(byText(CREATE_NEW_PROJECT)).click();
         return new CreateProjectModal();
     }
 
-    @Step("Checking the project for existence")
-    public boolean checkProjectExists(String projectName) {
-        log.info("Check project exists");
-        return !$$("td").filterBy(text(projectName)).isEmpty();
+    @Step("Check if project '{projectName}' exists")
+    public boolean isProjectExists(String projectName) {
+        log.info("Check if project '{}' exists", projectName);
+        return $$(
+                "td")
+                .findBy(text(projectName))
+                .exists();
     }
 
-    @Step("Delete project")
-    public ProjectsPage deleteProject(String project) {
-        log.info("Delete project");
-        $(byText(project))
+    @Step("Delete project '{projectName}'")
+    public ProjectsPage deleteProject(String projectName) {
+        log.info("Delete project '{}'", projectName);
+        $(byText(projectName))
                 .ancestor("tr")
                 .find("button[aria-label='Open action menu']")
                 .click();
         $("[data-testid=remove]").click();
         $x("//span[text()='Delete project']").click();
+        $(byText(projectName)).shouldNotBe(visible);
         return this;
     }
 }

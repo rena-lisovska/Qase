@@ -12,7 +12,6 @@ public class Input {
     private final SelenideElement element;
     private final String name;
 
-
     public Input(SelenideElement element, String name) {
         this.element = element;
         this.name = name;
