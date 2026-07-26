@@ -1,6 +1,5 @@
 package ui.pages;
 
-import com.codeborne.selenide.CollectionCondition;
 import ui.routes.UiRoutes;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -41,8 +40,10 @@ public class ProjectsPage extends BasePage {
     @Step("Check if project '{projectName}' exists")
     public boolean isProjectExists(String projectName) {
         log.info("Check if project '{}' exists", projectName);
-        $$("td")
-                .shouldBe(CollectionCondition.sizeGreaterThan(0));
+        if (projectName == null || projectName.isBlank()) {
+            log.warn("Project name is empty, skip existence check");
+            return false;
+        }
         return $$("td")
                 .findBy(text(projectName))
                 .exists();

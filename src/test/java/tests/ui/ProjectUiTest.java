@@ -11,6 +11,7 @@ import ui.pages.ProjectsPage;
 public class ProjectUiTest extends BaseTest {
 
     private Project project;
+    private String projectNameForDelete;
 
     @Test(
             testName = "Create project with required fields",
@@ -31,6 +32,7 @@ public class ProjectUiTest extends BaseTest {
         );
         projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
+        projectNameForDelete = project.getName();
     }
 
     @Test(
@@ -52,6 +54,7 @@ public class ProjectUiTest extends BaseTest {
         );
         projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
+        projectNameForDelete = project.getName();
     }
 
     @Test(
@@ -73,6 +76,7 @@ public class ProjectUiTest extends BaseTest {
         );
         projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
+        projectNameForDelete = project.getName();
     }
 
     @Test(
@@ -94,6 +98,7 @@ public class ProjectUiTest extends BaseTest {
         );
         projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
+        projectNameForDelete = project.getName();
     }
 
     @Test(
@@ -115,6 +120,7 @@ public class ProjectUiTest extends BaseTest {
         );
         projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
+        projectNameForDelete = project.getName();
     }
 
     @Test(
@@ -240,17 +246,18 @@ public class ProjectUiTest extends BaseTest {
 
     @AfterMethod(alwaysRun = true)
     public void deleteProjectAfterTest() {
-        if (project == null) {
+        if (projectNameForDelete == null) {
             return;
         }
-        projectsPage = new ProjectsPage();
+        ProjectsPage projectsPage = new ProjectsPage();
         try {
-            projectsPage.openPage();
-            if (projectsPage.isProjectExists(project.getName())) {
-                projectsPage.deleteProject(project.getName());
+            projectsPage
+                    .openPage();
+            if (projectsPage.isProjectExists(projectNameForDelete)) {
+                projectsPage.deleteProject(projectNameForDelete);
             }
         } finally {
-            project = null;
+            projectNameForDelete = null;
         }
     }
 }

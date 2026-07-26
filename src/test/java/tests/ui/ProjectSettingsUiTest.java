@@ -102,7 +102,7 @@ public class ProjectSettingsUiTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
     @Epic("Projects")
-    @Feature("Project settings")
+    @Feature("Project UI settings")
     @Story("Update project without code")
     public void checkUpdateProjectWithoutCode() {
         LoginTestData loginData = LoginTestData.validCredentials();
