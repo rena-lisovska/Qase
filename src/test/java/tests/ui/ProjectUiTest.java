@@ -1,14 +1,14 @@
 package tests.ui;
 
 import core.data.LoginTestData;
-import core.dto.Project;
+import ui.dto.Project;
 import core.factory.ui.UiProjectFactory;
 import io.qameta.allure.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ui.pages.ProjectsPage;
 
-public class ProjectTest extends BaseTest {
+public class ProjectUiTest extends BaseTest {
 
     private Project project;
 
@@ -20,7 +20,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User creates project with required fields")
     public void checkCreateProjectWithRequiredFields() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -29,7 +29,7 @@ public class ProjectTest extends BaseTest {
                 loginData.getUsername(),
                 loginData.getPassword()
         );
-        projectStep.createProject(project)
+        projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
     }
 
@@ -41,7 +41,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User creates a project with all fields filled")
     public void checkCreateProjectWithAllFields() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -50,7 +50,7 @@ public class ProjectTest extends BaseTest {
                 loginData.getUsername(),
                 loginData.getPassword()
         );
-        projectStep.createProject(project)
+        projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
     }
 
@@ -62,7 +62,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User creates a project with public access")
     public void checkCreatePublicProject() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -71,7 +71,7 @@ public class ProjectTest extends BaseTest {
                 loginData.getUsername(),
                 loginData.getPassword()
         );
-        projectStep.createProject(project)
+        projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
     }
 
@@ -83,7 +83,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User creates a project with group access")
     public void checkCreateProjectWithGroupAccess() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -92,7 +92,7 @@ public class ProjectTest extends BaseTest {
                 loginData.getUsername(),
                 loginData.getPassword()
         );
-        projectStep.createProject(project)
+        projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
     }
 
@@ -104,7 +104,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User creates a project without members")
     public void checkCreateProjectWithoutMembers() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -113,7 +113,7 @@ public class ProjectTest extends BaseTest {
                 loginData.getUsername(),
                 loginData.getPassword()
         );
-        projectStep.createProject(project)
+        projectsStep.createProject(project)
                 .verifyProjectName(project.getName());
     }
 
@@ -125,7 +125,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User cannot create project without required name")
     public void checkProjectWithoutName() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -150,7 +150,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User cannot create project without required code")
     public void checkProjectWithoutCode() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -175,7 +175,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User cannot create project with group access without selected group")
     public void checkGroupAccessWithoutGroup() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -200,7 +200,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User cannot create empty project")
     public void checkEmptyProject() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -225,7 +225,7 @@ public class ProjectTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
     @Epic("Projects")
-    @Feature("Project creation")
+    @Feature("Project UI creation")
     @Story("User cancels project creation")
     public void checkProjectIsNotCreatedAfterCancel() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -234,7 +234,7 @@ public class ProjectTest extends BaseTest {
                 loginData.getUsername(),
                 loginData.getPassword()
         );
-        projectStep.cancelProjectCreation(project)
+        projectsStep.cancelProjectCreation(project)
                 .isPageOpened();
     }
 
@@ -243,10 +243,14 @@ public class ProjectTest extends BaseTest {
         if (project == null) {
             return;
         }
-        ProjectsPage projectsPage = new ProjectsPage();
-        if (projectsPage.openPage().isProjectExists(project.getName())) {
-            projectsPage.deleteProject(project.getName());
+        projectsPage = new ProjectsPage();
+        try {
+            projectsPage.openPage();
+            if (projectsPage.isProjectExists(project.getName())) {
+                projectsPage.deleteProject(project.getName());
+            }
+        } finally {
+            project = null;
         }
-        project = null;
     }
 }

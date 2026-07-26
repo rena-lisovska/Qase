@@ -5,7 +5,6 @@ import core.utils.PropertyReader;
 public class TestConfig {
 
     private TestConfig() {
-
     }
 
     public static String getUser() {

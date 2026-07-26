@@ -1,12 +1,13 @@
 package ui.steps;
 
-import core.dto.Project;
+import ui.dto.Project;
 import io.qameta.allure.Step;
 import ui.pages.CreateProjectModal;
 import ui.pages.ProjectPage;
+import ui.pages.ProjectSettingsPage;
 import ui.pages.ProjectsPage;
 
-public class ProjectStep {
+public class ProjectsStep {
 
     private final ProjectsPage projectsPage = new ProjectsPage();
     private final CreateProjectModal createProjectModal = new CreateProjectModal();
@@ -29,5 +30,19 @@ public class ProjectStep {
                 .fill(project)
                 .clickCancel();
         return new ProjectsPage().isPageOpened();
+    }
+
+    @Step("Create project and open project settings")
+    public ProjectSettingsPage createProjectAndOpenSettings(Project project) {
+        createProject(project);
+        return openProjectSettings(project);
+    }
+
+    @Step("Open project settings")
+    public ProjectSettingsPage openProjectSettings(Project project) {
+        return projectsPage
+                .openPage()
+                .openProjectSettings(project.getName())
+                .isPageOpened(project.getCode());
     }
 }

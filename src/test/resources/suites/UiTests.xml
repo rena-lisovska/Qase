@@ -16,8 +16,9 @@
             </run>
         </groups>
         <classes>
-            <class name="tests.ui.LoginTest"/>
-            <class name="tests.ui.ProjectTest"/>
+            <class name="tests.ui.LoginUiTest"/>
+            <class name="tests.ui.ProjectUiTest"/>
+            <class name="tests.ui.ProjectSettingsUiTest"/>
         </classes>
     </test>
 
@@ -28,8 +29,9 @@
             </run>
         </groups>
         <classes>
-            <class name="tests.ui.LoginTest"/>
-            <class name="tests.ui.ProjectTest"/>
+            <class name="tests.ui.LoginUiTest"/>
+            <class name="tests.ui.ProjectUiTest"/>
+            <class name="tests.ui.ProjectSettingsUiTest"/>
         </classes>
     </test>
 </suite>

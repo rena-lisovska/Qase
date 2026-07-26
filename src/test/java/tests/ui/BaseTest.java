@@ -6,12 +6,9 @@ import core.configs.TestConfig;
 import io.qameta.allure.testng.AllureTestNg;
 import core.listeners.TestListener;
 import org.testng.annotations.*;
-import ui.pages.CreateProjectModal;
-import ui.pages.LoginPage;
-import ui.pages.ProjectPage;
-import ui.pages.ProjectsPage;
+import ui.pages.*;
 import ui.steps.LoginStep;
-import ui.steps.ProjectStep;
+import ui.steps.ProjectsStep;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
@@ -22,8 +19,9 @@ public class BaseTest {
     protected LoginStep loginStep;
     protected ProjectsPage projectsPage;
     protected CreateProjectModal createProjectModal;
-    protected ProjectStep projectStep;
+    protected ProjectsStep projectsStep;
     protected ProjectPage projectPage;
+    protected ProjectSettingsPage projectSettingsPage;
 
     protected String user;
     protected String password;
@@ -52,9 +50,10 @@ public class BaseTest {
         loginPage = new LoginPage();
         loginStep = new LoginStep();
         projectsPage = new ProjectsPage();
-        projectStep = new ProjectStep();
+        projectsStep = new ProjectsStep();
         createProjectModal = new CreateProjectModal();
         projectPage = new ProjectPage();
+        projectSettingsPage = new ProjectSettingsPage();
     }
 
     @AfterMethod(

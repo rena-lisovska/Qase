@@ -1,13 +1,13 @@
 package ui.pages;
 
-import core.dto.Project;
+import org.testng.Assert;
+import ui.dto.Project;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import ui.wrappers.ComboBox;
 import ui.wrappers.Input;
 import ui.wrappers.RadioButton;
 import ui.wrappers.TextArea;
-
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -68,14 +68,14 @@ public class CreateProjectModal {
         log.info("Verify project creation failed for project: {}", project);
         $(byText(CREATE_PROJECT_BUTTON)).shouldBe(visible);
         if (project.getName() != null) {
-            org.testng.Assert.assertEquals(
+            Assert.assertEquals(
                     projectName.getValue(),
                     project.getName(),
                     "Project name should remain in input field"
             );
         }
         if (project.getCode() != null) {
-            org.testng.Assert.assertEquals(
+            Assert.assertEquals(
                     projectCode.getValue(),
                     project.getCode(),
                     "Project code should remain in input field"

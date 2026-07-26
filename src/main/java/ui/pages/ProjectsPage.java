@@ -1,9 +1,9 @@
 package ui.pages;
 
+import com.codeborne.selenide.CollectionCondition;
 import ui.routes.UiRoutes;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
@@ -41,8 +41,9 @@ public class ProjectsPage extends BasePage {
     @Step("Check if project '{projectName}' exists")
     public boolean isProjectExists(String projectName) {
         log.info("Check if project '{}' exists", projectName);
-        return $$(
-                "td")
+        $$("td")
+                .shouldBe(CollectionCondition.sizeGreaterThan(0));
+        return $$("td")
                 .findBy(text(projectName))
                 .exists();
     }
@@ -54,9 +55,24 @@ public class ProjectsPage extends BasePage {
                 .ancestor("tr")
                 .find("button[aria-label='Open action menu']")
                 .click();
-        $("[data-testid=remove]").click();
-        $x("//span[text()='Delete project']").click();
+        $("[data-testid=remove]")
+                .shouldBe(visible)
+                .click();
+        $x("//span[text()='Delete project']")
+                .shouldBe(visible)
+                .click();
         $(byText(projectName)).shouldNotBe(visible);
         return this;
+    }
+
+    @Step("Open settings for project '{projectName}'")
+    public ProjectSettingsPage openProjectSettings(String projectName) {
+        log.info("Open settings for project '{}'", projectName);
+        $(byText(projectName))
+                .ancestor("tr")
+                .find("button[aria-label='Open action menu']")
+                .click();
+        $("[data-testid='settings']").click();
+        return new ProjectSettingsPage();
     }
 }

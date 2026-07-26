@@ -1,4 +1,4 @@
-package core.dto;
+package ui.dto;
 
 import lombok.Builder;
 import lombok.Data;

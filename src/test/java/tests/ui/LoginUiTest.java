@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class LoginTest extends BaseTest {
+public class LoginUiTest extends BaseTest {
 
     @Test(
             testName = "Login with valid credentials",
@@ -16,7 +16,7 @@ public class LoginTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.BLOCKER)
     @Epic("Authentication")
-    @Feature("Login")
+    @Feature("Login UI")
     @Story("User logs in with valid credentials")
     public void checkLoginSuccessful() {
         LoginTestData loginData = LoginTestData.validCredentials();
@@ -44,7 +44,7 @@ public class LoginTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Authentication")
-    @Feature("Login")
+    @Feature("Login UI")
     @Story("User cannot log in without required fields")
     public void checkRequiredFieldsValidation(String username, String password) {
         loginPage.openPage()
@@ -70,7 +70,7 @@ public class LoginTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.CRITICAL)
     @Epic("Authentication")
-    @Feature("Login")
+    @Feature("Login UI")
     @Story("User cannot log in with invalid credentials")
     public void checkLoginWithInvalidCredentials(LoginTestData loginData) {
         loginPage.openPage()
@@ -90,7 +90,7 @@ public class LoginTest extends BaseTest {
     @Owner("AQA Team, Lisovskaya I.")
     @Severity(SeverityLevel.NORMAL)
     @Epic("Authentication")
-    @Feature("Login")
+    @Feature("Login UI")
     @Story("User can manage Remember me option")
     public void checkRememberMeCheckboxState() {
         SoftAssert softAssert = new SoftAssert();

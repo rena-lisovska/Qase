@@ -1,7 +1,7 @@
 package core.factory.ui;
 
 import com.github.javafaker.Faker;
-import core.dto.Project;
+import ui.dto.Project;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

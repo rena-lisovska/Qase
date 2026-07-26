@@ -14,12 +14,12 @@ ___
 - [Архитектурные паттерны](#-архитектурные-паттерны)
     - [Page Object Model (POM)](#-page-object-model-pom)
     - [Chain of Invocations](#-chain-of-invocations)
-    - [Builder](#-builder)
-    - [Factory (Test Data Factory)](#-factory-test-data-factory)
-    - [Page Element/Wrappers (под вопросом)](#-page-elementwrappers-пока-под-вопросом)
+    - [Builder и Test Data Factory](#-builder-и-factory-test-data-factory)
+    - [Page Element/Wrappers](#-page-elementwrappers)
     - [Steps](#-steps)
     - [Loadable Page](#-loadable-page)
     - [Retry Mechanism](#-retry-mechanism)
+    - [DataProvider](#-dataprovider)
 - [Конфигурация, запуск тестов, отчётность](#-конфигурация-запуск-тестов-отчётность)
 - [Чек-лист API-тестирования](#-чек-лист-api-тестов)
     - [модуль "Project"](#модуль-project)
@@ -28,9 +28,7 @@ ___
 - [Чек-лист UI тестов](#-чек-лист-ui-тестов)
     - [модуль "Authorization" (login)](#модуль-authorization)
     - [модуль "Projects"](#модуль-projects)
-    - модуль "Project Settings"
-    - модуль ...
-    - модуль ...
+    - [модуль "Project Settings"](#модуль-project-settings)
 - Чек-лист интеграционных тестов (UI + API)
 
 ___
@@ -40,16 +38,6 @@ ___
 **Система Qase (Qase.io)** — облачная система управления тестированием (TMS — Test Management System).
 Служит центральной платформой для команд разработки и контроля качества, где создаются, хранятся и систематизируются
 тест-кейсы, а также планируются проверки.
-
-### Основные возможности Qase:
-
-* **Управление тест-кейсами:** создание, структурирование и редактирование детальных шагов для проверки функционала, а
-  также переиспользование одинаковых шагов в разных тестах.
-* **Тест-раны и прогоны:** запуск тестовых циклов с отслеживанием прогресса команды и затраченного времени.
-* **Автоматизация:** интеграция с библиотеками автотестов через API для автоматического сбора результатов в отчеты.
-* **Интеграции:** синхронизация с популярными таск-трекерами (Jira, Asana, Redmine) и CI/CD системами для сквозной
-  работы над багами и задачами.
-* **Аналитика:** предоставление дашбордов с метриками покрытия тестами и историей прогонов.
 
 ___
 
@@ -80,63 +68,208 @@ _В РАЗРАБОТКЕ_
 ### ◉ Page Object Model (POM)
 
 Каждая страница (или её логическая часть) описывается отдельным классом, который хранит локаторы элементов и методы для
-взаимодействия с ними.
-Такой подход сокращает дублирование кода и упрощает сопровождение автотестов при изменении пользовательского интерфейса.
+взаимодействия с ними. Такой подход сокращает дублирование кода и упрощает сопровождение автотестов при изменении
+пользовательского интерфейса.
 
-- BasePage — служебный родительский класс для всех page-классов.
-- LoginPage — страница авторизации в системе.
-- ProjectsPage — страница со списком доступных проектов и интерфейсом по управлению ими.
-- ProjectSettingsPage (вкладка General) — страница по изменению настроект конкретного проекта.
-- ProjectPage — страница конкретного проекта и интерфейсом по управлению им.
-- TrashBinPage — специальная «Корзина», куда временно помещаются удаленные тест-кейсы конкретного проекта.
-- _добавить модальные окна отдельно_
+- `BasePage` — служебный родительский класс для всех page-классов.
+- `LoginPage` — страница авторизации в системе.
+- `ProjectsPage` — страница со списком доступных проектов и интерфейсом по управлению ими.
+- `CreateProjectModal` - модальное окно по созданию нового проекта.
+- `ProjectSettingsPage` (вкладка General) — страница по изменению настроект конкретного проекта.
+- `ProjectPage` — страница конкретного проекта и интерфейсом по управлению им.
+
+```java
+public class LoginPage extends BasePage {
+
+    private static final String LOGIN_INPUT = "[name=email]";
+    private static final String PASSWORD_INPUT = "[name=password]";
+    private static final String COOKIE_ACCEPT = "#accept";
+    private static final String COOKIE_BANNER = "#usercentrics-cmp-ui";
+    private static final String REQUIRED_FIELDS_MESSAGE = "//small[contains(text(), 'This field is required')]";
+    private static final String NOT_MATCH_RECORDS_MESSAGE = "//div[@role='alert']//span[contains(text(), 'These credentials do not match our records')]";
+    private static final String REMEMBER_ME_CHECKBOX = "input[name='remember']";
+    private static final String REMEMBER_ME_CONTAINER = "[data-sentry-component='Checkbox']";
+
+    @Override
+    @Step("Open login page")
+    public LoginPage openPage() {
+        log.info("Opening login page");
+        open(UiRoutes.LOGIN);
+        acceptCookies();
+        return this;
+    }
+
+    @Override
+    @Step("Check that login page is opened")
+    public LoginPage isPageOpened() {
+        log.info("Checking that login page is open");
+        webdriver().shouldHave(urlContaining(UiRoutes.LOGIN));
+        $(byText(LOGIN_PAGE_TITLE))
+                .shouldBe(visible
+                        .because("Login page title should be displayed when login page is opened"));
+        return this;
+    }
+}
+```
 
 ### ◉ Chain of Invocations
 
 Паттерн позволяет вызывать методы один за другим в виде единой цепочки.
 На базе Page Object Model (POM) этот шаблон делает код тестов максимально читаемым.
 
-### ◉ Builder
+```java
 
-Паттерн использован для удобного создания DTO-объектов в тестах.
-Позволяет формировать необходимые данные только с заполнением требуемых полей и делает код тестов более читаемым.
+@Step("Create new project")
+public ProjectPage createProject(Project project) {
+    projectsPage.clickCreateProject();
+    createProjectModal
+            .isModalOpened()
+            .fill(project)
+            .clickCreate();
+    return new ProjectPage().isPageOpened(project.getCode());
+}
+```
 
-### ◉ Factory (Test Data Factory)
+### ◉ Builder и Factory (Test Data Factory)
 
-Паттерн выбран для централизованного создания тестовых данных.
-Позволяет избежать дублирования кода и предоставляет готовые наборы данных для различных сценариев тестирования.
+Паттерн Builder использован для удобного создания DTO-объектов в тестах. Позволяет формировать необходимые данные только
+с заполнением требуемых полей и делает код тестов более читаемым.
 
-### ◉ Page Element/Wrappers (пока под вопросом)
+Паттерн Factory выбран для централизованного создания тестовых данных. Позволяет избежать дублирования кода и
+предоставляет готовые наборы данных для различных сценариев тестирования.
+
+```java
+    public static CreateProjectRequest validProjectRq() {
+    CreateProjectRequest project = CreateProjectRequest.builder()
+            .title(FAKER.company().name())
+            .code(FAKER.bothify("QA##"))
+            .description(FAKER.lorem().sentence())
+            .access(AccessType.random().getValue())
+            .group(GroupType.random().getValue())
+            .build();
+    log.info("Generated project with all fields: [{}]", project);
+    return project;
+}
+```
+
+### ◉ Page Element/Wrappers
 
 Паттерн представляет собой набор классов-обёрток над стандартными UI-элементами, инкапсулирующих логику взаимодействия с
-ними.
-Это позволяет переиспользовать общий функционал элементов, уменьшить дублирование кода и сделать Page Object более
+ними. Это позволяет переиспользовать общий функционал элементов, уменьшить дублирование кода и сделать Page Object более
 компактными и читаемыми.
 
-- Input
-- ComboBox
-- Checkbox
-- TextArea
-- Button
-- Select
+В проекте реализованы:
+- `ComboBox`
+- `Input`
+- `RadioButton`
+- `TextArea`
+
+```java
+private final Input projectName = new Input($("#project-name"), "Project name");
+private final TextArea description = new TextArea($("#description-area"), "Description");
+private final RadioButton privateAccess = new RadioButton($x("//input[@value='private']/ancestor::label"), "Private");
+private final ComboBox chooseGroup = new ComboBox($x("//label[normalize-space()='Choose a group']/following::div[@role='combobox'][1]"), "Choose a group");
+```
 
 ### ◉ Steps
 
 Step-классы инкапсулируют последовательность действий и типовые сценарии взаимодействия с системой.
 Такой подход уменьшает дублирование кода, повышает читаемость тестов и упрощает сопровождение проекта.
 
+```java
+    public void checkCreateProjectWithRequiredFields() {
+    LoginTestData loginData = LoginTestData.validCredentials();
+    project = UiProjectFactory.minimalProject();
+    loginStep.authorize(
+            loginData.getUsername(),
+            loginData.getPassword()
+    );
+    projectStep.createProject(project)
+            .verifyProjectName(project.getName());
+}
+```
+
 ### ◉ Loadable Page
 
 Паттерн расширяет Page Object Model, наделяя каждый Page-класс ответственностью за проверку собственной готовности к
-работе.
-Такой подход централизует логику ожиданий, снижает вероятность возникновения нестабильных тестов.
+работе. Такой подход централизует логику ожиданий, снижает вероятность возникновения нестабильных тестов.
+
+```java
+
+@Override
+@Step("Open projects page")
+public ProjectsPage openPage() {
+    log.info("Opening the Projects page");
+    open(UiRoutes.PROJECTS);
+    return this;
+}
+
+@Override
+@Step("Check that projects page is opened")
+public ProjectsPage isPageOpened() {
+    log.info("Checking that projects page is opened");
+    webdriver().shouldHave(urlContaining(UiRoutes.PROJECTS));
+    $(byText(PROJECTS_PAGE_TITLE)).shouldBe(visible);
+    return this;
+}
+```
 
 ### ◉ Retry Mechanism
 
 Паттерн предназначен для автоматического повторного выполнения теста или отдельной операции в случае возникновения
-временных ошибок,
-не связанных с дефектами приложения (например, нестабильности сети, задержек загрузки страницы или кратковременной
+временных ошибок, не связанных с дефектами приложения (например, нестабильности сети, задержек загрузки страницы или
+кратковременной
 недоступности сервиса).
+
+```java
+public class Retry implements IRetryAnalyzer {
+
+    private int attempt = 1;
+    private static final int MAX_RETRY = 3;
+
+    @Override
+    public boolean retry(ITestResult iTestResult) {
+        if (!iTestResult.isSuccess()) {
+            if (attempt < MAX_RETRY) {
+                attempt++;
+                iTestResult.setStatus(ITestResult.FAILURE);
+                log.warn("Retrying once again");
+                return true;
+            } else {
+                iTestResult.setStatus(ITestResult.FAILURE);
+            }
+        } else {
+            iTestResult.setStatus(ITestResult.SUCCESS);
+        }
+        return false;
+    }
+}
+```
+
+```java
+public class AnnotationTransformer implements IAnnotationTransformer {
+
+    @Override
+    public void transform(ITestAnnotation annotation, Class testClass, Constructor testConstructor, Method testMethod) {
+        annotation.setRetryAnalyzer(Retry.class);
+    }
+}
+```
+
+### ◉ DataProvider
+
+Использование TestNG @DataProvider для параметризации тестов с различными наборами данных.
+
+```java
+
+@DataProvider(name = "invalidCredentials")
+public Object[][] invalidCredentials() {
+    return new Object[][]{
+            {LoginTestData.invalidCredentialsWithUser()},
+            {LoginTestData.invalidCredentialsWithPassword()}
+    };
+}
+```
 
 ## 🧰 Конфигурация, запуск тестов, отчётность
 
@@ -299,6 +432,16 @@ mvn allure:report
 | UI-02-10 | Cancel project creation                | Negative | ✔️ Done           |
 | UI-02-11 | Delete project                         | Positive | ✔️ Done           |
 
+### Модуль "Project Settings"
+
+| №        | Тест-кейс                          | Группа   | Статус реализации |
+|----------|------------------------------------|----------|-------------------|
+| UI-03-01 | Update project with new data       | Positive | ✔️ Done           |
+| UI-03-02 | Append Update to project fields    | Positive | ✔️ Done           |
+| UI-03-03 | Project name is required on update | Negative | ✔️ Done           |
+| UI-03-04 | Project code is required on update | Negative | ✔️ Done           |
+| UI-03-05 | Upload valid project logo          | Positive | ✔️ Done           |
+| UI-03-06 | Upload invalid project logo        | Negative | ✔️ Done           |
 
 ## 📑 Чек-лист интеграционных тестов (UI + API)
 
