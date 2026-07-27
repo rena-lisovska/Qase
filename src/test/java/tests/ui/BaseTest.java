@@ -7,6 +7,9 @@ import io.qameta.allure.testng.AllureTestNg;
 import core.listeners.TestListener;
 import org.testng.annotations.*;
 import ui.pages.*;
+import ui.pages.modals.CreateProjectModal;
+import ui.pages.modals.CreateSuiteModal;
+import ui.pages.modals.ImportTestCasesModal;
 import ui.steps.LoginStep;
 import ui.steps.ProjectsStep;
 
@@ -22,6 +25,8 @@ public class BaseTest {
     protected ProjectsStep projectsStep;
     protected ProjectPage projectPage;
     protected ProjectSettingsPage projectSettingsPage;
+    protected CreateSuiteModal createSuiteModal;
+    protected ImportTestCasesModal importTestCasesModal;
 
     protected String user;
     protected String password;
@@ -54,6 +59,8 @@ public class BaseTest {
         createProjectModal = new CreateProjectModal();
         projectPage = new ProjectPage();
         projectSettingsPage = new ProjectSettingsPage();
+        createSuiteModal = new CreateSuiteModal();
+        importTestCasesModal = new ImportTestCasesModal();
     }
 
     @AfterMethod(

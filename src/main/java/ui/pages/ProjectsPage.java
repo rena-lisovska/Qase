@@ -1,5 +1,6 @@
 package ui.pages;
 
+import ui.pages.modals.CreateProjectModal;
 import ui.routes.UiRoutes;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
@@ -14,12 +15,17 @@ import static ui.dict.Elements.PROJECTS_PAGE_TITLE;
 @Log4j2
 public class ProjectsPage extends BasePage {
 
+    public static final String PROJECT_ACTION_MENU = "button[aria-label='Open action menu']";
+    public static final String REMOVE_PROJECT_BUTTON = "[data-testid='remove']";
+    public static final String DELETE_PROJECT_BUTTON = "Delete project";
+    private static final String SETTINGS_PROJECT_BUTTON = "[data-testid='settings']";
+
     @Override
     @Step("Open projects page")
     public ProjectsPage openPage() {
         log.info("Opening the Projects page");
         open(UiRoutes.PROJECTS);
-        return this;
+        return isPageOpened();
     }
 
     @Override
@@ -54,12 +60,12 @@ public class ProjectsPage extends BasePage {
         log.info("Delete project '{}'", projectName);
         $(byText(projectName))
                 .ancestor("tr")
-                .find("button[aria-label='Open action menu']")
+                .find(PROJECT_ACTION_MENU)
                 .click();
-        $("[data-testid=remove]")
+        $(REMOVE_PROJECT_BUTTON)
                 .shouldBe(visible)
                 .click();
-        $x("//span[text()='Delete project']")
+        $x(DELETE_PROJECT_BUTTON)
                 .shouldBe(visible)
                 .click();
         $(byText(projectName)).shouldNotBe(visible);
@@ -71,9 +77,18 @@ public class ProjectsPage extends BasePage {
         log.info("Open settings for project '{}'", projectName);
         $(byText(projectName))
                 .ancestor("tr")
-                .find("button[aria-label='Open action menu']")
+                .find(PROJECT_ACTION_MENU)
                 .click();
-        $("[data-testid='settings']").click();
+        $(SETTINGS_PROJECT_BUTTON).click();
         return new ProjectSettingsPage();
+    }
+
+    @Step("Open project '{projectName}'")
+    public ProjectPage openSpecificProject(String projectName) {
+        log.info("Opening project '{}'", projectName);
+        $(byText(projectName))
+                .shouldBe(visible)
+                .click();
+        return new ProjectPage();
     }
 }

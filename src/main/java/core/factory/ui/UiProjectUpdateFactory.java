@@ -12,7 +12,7 @@ public class UiProjectUpdateFactory {
     public static Project updateAllFields() {
         Project project = Project.builder()
                 .name(FAKER.company().name())
-                .code(FAKER.bothify("UP##"))
+                .code(FAKER.bothify("UP###"))
                 .description(FAKER.lorem().sentence())
                 .build();
         log.info("Generated project data for full update: [{}]", project);

@@ -19,6 +19,7 @@
             <class name="tests.ui.LoginUiTest"/>
             <class name="tests.ui.ProjectUiTest"/>
             <class name="tests.ui.ProjectSettingsUiTest"/>
+            <class name="tests.ui.SuiteUITest"/>
         </classes>
     </test>
 
@@ -32,6 +33,7 @@
             <class name="tests.ui.LoginUiTest"/>
             <class name="tests.ui.ProjectUiTest"/>
             <class name="tests.ui.ProjectSettingsUiTest"/>
+            <class name="tests.ui.SuiteUITest"/>
         </classes>
     </test>
 </suite>

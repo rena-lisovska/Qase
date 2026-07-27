@@ -2,7 +2,7 @@ package ui.steps;
 
 import ui.dto.Project;
 import io.qameta.allure.Step;
-import ui.pages.CreateProjectModal;
+import ui.pages.modals.CreateProjectModal;
 import ui.pages.ProjectPage;
 import ui.pages.ProjectSettingsPage;
 import ui.pages.ProjectsPage;
@@ -20,6 +20,14 @@ public class ProjectsStep {
                 .fill(project)
                 .clickCreate();
         return new ProjectPage().isPageOpened(project.getCode());
+    }
+
+    @Step("Create project and open project page")
+    public ProjectPage createProjectAndOpenProjectPage(Project project) {
+        createProject(project);
+        return projectsPage
+                .openSpecificProject(project.getName())
+                .isPageOpened(project.getCode());
     }
 
     @Step("Cancel project creation")

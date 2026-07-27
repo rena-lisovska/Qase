@@ -145,7 +145,7 @@ public class ProjectSettingsUiTest extends BaseTest {
 
     @Test(
             testName = "Upload invalid project logo",
-            description = "Verify that txt file cannot be uploaded as project logo",
+            description = "Verify that .txt file cannot be uploaded as project logo",
             groups = {"regression", "ui", "negative"}
     )
     @Owner("AQA Team, Lisovskaya I.")

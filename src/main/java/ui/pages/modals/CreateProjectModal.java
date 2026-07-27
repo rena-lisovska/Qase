@@ -1,9 +1,10 @@
-package ui.pages;
+package ui.pages.modals;
 
 import org.testng.Assert;
 import ui.dto.Project;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
+import ui.pages.ProjectsPage;
 import ui.wrappers.ComboBox;
 import ui.wrappers.Input;
 import ui.wrappers.RadioButton;

@@ -15,7 +15,7 @@ public class ApiProjectFactory {
     public static CreateProjectRequest validProjectRq() {
         CreateProjectRequest project = CreateProjectRequest.builder()
                 .title(FAKER.company().name())
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .description(FAKER.lorem().sentence())
                 .access(AccessType.random().getValue())
                 .group(GroupType.random().getValue())
@@ -27,7 +27,7 @@ public class ApiProjectFactory {
     public static CreateProjectRequest minimalProjectRq() {
         CreateProjectRequest project = CreateProjectRequest.builder()
                 .title(FAKER.company().name())
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .access(AccessType.random().getValue())
                 .build();
         log.info("Generated project with required fields only: [{}]", project);

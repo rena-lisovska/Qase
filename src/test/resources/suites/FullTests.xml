@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Full Tests"
-       thread-count="1"
-       parallel="none">
+       thread-count="3"
+       parallel="classes">
 
     <listeners>
         <listener class-name="core.listeners.TestListener"/>
@@ -22,6 +22,7 @@
             <class name="tests.ui.LoginUiTest"/>
             <class name="tests.ui.ProjectUiTest"/>
             <class name="tests.ui.ProjectSettingsUiTest"/>
+            <class name="tests.ui.SuiteUITest"/>
         </classes>
     </test>
 </suite>

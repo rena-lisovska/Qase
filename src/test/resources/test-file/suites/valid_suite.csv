@@ -1,0 +1,11 @@
+v2.id,title,description,preconditions,postconditions,tags,priority,severity,type,behavior,automation,status,is_flaky,layer,steps_type,steps_actions,steps_result,steps_data,milestone_id,milestone,suite_id,suite_parent_id,suite,suite_without_cases,parameters,is_muted
+,,,,,,,,,,,,,,,,,,,,1,,SUITE538,1
+,,,,,,,,,,,,,,,,,,,,3,1,internalSUITE,1
+,,,,,,,,,,,,,,,,,,,,2,,SUITE539,1
+2,Case01,,,,,undefined,normal,other,undefined,is-not-automated,actual,no,unknown,classic,,,,,,1,,SUITE538,,,no
+3,Case02,,,,,undefined,normal,other,undefined,is-not-automated,actual,no,unknown,classic,,,,,,1,,SUITE538,,,no
+4,Case03,,,,,undefined,normal,other,undefined,is-not-automated,actual,no,unknown,classic,,,,,,3,1,internalSUITE,,,no
+8,Case6,,,,,undefined,normal,other,undefined,is-not-automated,actual,no,unknown,classic,,,,,,3,1,internalSUITE,,,no
+5,Case04,,,,,undefined,normal,other,undefined,is-not-automated,actual,no,unknown,classic,,,,,,2,,SUITE539,,,no
+6,Case05,,,,,undefined,normal,other,undefined,is-not-automated,actual,no,unknown,classic,,,,,,2,,SUITE539,,,no
+7,Case06,,,,,undefined,normal,other,undefined,is-not-automated,actual,no,unknown,classic,,,,,,2,,SUITE539,,,no

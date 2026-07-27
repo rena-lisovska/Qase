@@ -11,7 +11,7 @@ ___
 - [Описание проекта](#-описание-проекта)
 - [Технологический стек](#-технологический-стек)
 - [Структура проекта](#-структура-проекта)
-- [Архитектурные паттерны](#-архитектурные-паттерны)
+- [Архитектурные паттерны](#-архитектурные-паттерны-в-действии)
     - [Page Object Model (POM)](#-page-object-model-pom)
     - [Chain of Invocations](#-chain-of-invocations)
     - [Builder и Test Data Factory](#-builder-и-factory-test-data-factory)
@@ -29,7 +29,7 @@ ___
     - [модуль "Authorization" (login)](#модуль-authorization)
     - [модуль "Projects"](#модуль-projects)
     - [модуль "Project Settings"](#модуль-project-settings)
-- Чек-лист интеграционных тестов (UI + API)
+    - [модуль "Project -> Test Suite"](#модуль-project---test-suite)
 
 ___
 
@@ -59,11 +59,240 @@ ___
 
 ___
 
-## 📦 Структура проекта
+## 📐 Структура проекта
+Проект реализован с использованием многослойной архитектуры, что позволяет разделить ответственность между компонентами:
 
-_В РАЗРАБОТКЕ_
+- **Tests** — содержат только сценарии тестирования и проверки.
+- **Steps / Adapters** — инкапсулируют бизнес-логику.
+- **Pages** — описывают пользовательский интерфейс.
+- **Wrappers** — скрывают реализацию взаимодействия с элементами.
+- **ApiClient** — единая точка выполнения HTTP-запросов.
+- **Factories** — отвечают за генерацию тестовых данных.
+- **Models (Request/Response)** — обеспечивают сериализацию и десериализацию данных.
 
-## 🏗️ Архитектурные паттерны
+``` text
+Qase/
+│
+├── .github/                                                                   # Конфигурация GitHub
+│   └── workflows/
+│       └── gitHubActions.yml                                                  # CI/CD пайплайн для автоматического запуска тестов
+│
+├── pom.xml                                                                    # Конфигурация Maven и зависимости проекта
+├── README.md                                                                  # Документация проекта
+├── .gitignore                                                                 # Исключения Git
+│
+└── src/
+    ├── main/
+    │   └── java/
+    │       │
+    │       ├── api/                                                           # API-слой фреймворка
+    │       │   ├── adapters/                                                  # Адаптеры фреймворка
+    │       │   │   ├── BaseAdapter.java                                       # Базовые конфигурации адаптера фреймворка
+    │       │   │   ├── ProjectAdapter.java                                    # Методы работы с Project API
+    │       │   │   ├── TestCaseAdapter.java                                   # Методы работы с Test Case API
+    │       │   │   └── TestSuiteAdapter.java                                  # Методы работы с Test Suite API
+    │       │   │
+    │       │   ├── client/
+    │       │   │   └── ApiClient.java                                         # HTTP-клиент для выполнения GET/POST/PATCH/DELETE запросов
+    │       │   │
+    │       │   ├── endpoints/
+    │       │   │   └── ApiEndpoints.java                                      # REST endpoint'ы приложения
+    │       │   │
+    │       │   └── models/                                                    # DTO модели API
+    │       │       ├── project/                                               # Модели Project API
+    │       │       │   ├── request/                                           # Тела запросов
+    │       │       │   └── response/                                          # Модели ответов
+    │       │       ├── testcase/                                              # Модели Test Case API
+    │       │       │   ├── request/                                           # Тела запросов
+    │       │       │   └── response/                                          # Модели ответов
+    │       │       └── testsuite/                                             # Модели Test Suite API
+    │       │           ├── request/                                           # Тела запросов
+    │       │           └── response/                                          # Модели ответов
+    │       │
+    │       ├── core/                                                          # Общие компоненты фреймворка
+    │       │   ├── enums/                                                     # Перечисления проекта
+    │       │   ├── factory/                                                   # Генераторы тестовых данных
+    │       │   │   ├── api/                                                   # Генерация API-моделей
+    │       │   │   └── ui/                                                    # Генерация UI DTO
+    │       │   └── utils/                                                     # Вспомогательные классы
+    │       │       ├── PropertyReader.java                                    # Чтение конфигурации из properties
+    │       │       └── SecureSelenide.java                                    # Безопасная работа с элементами Selenide
+    │       │
+    │       └── ui/                                                            # UI-слой фреймворка
+    │           ├── dict/
+    │           │   └── Elements.java                                          # Общие текстовые значения и элементы интерфейса
+    │           │
+    │           ├── dto/                                                       # DTO объекты для UI тестов
+    │           │   ├── Project.java                                           # DTO модели Project
+    │           │   └── Suite.java                                             # DTO модели Test Suite
+    │           │
+    │           ├── pages/                                                     # Page Object Model
+    │           │   ├── BasePage.java                                          # Базовая страница
+    │           │   ├── LoginPage.java                                         # Страница авторизации
+    │           │   ├── ProjectsPage.java                                      # Страница проектов
+    │           │   ├── ProjectPage.java                                       # Страница проекта
+    │           │   ├── ProjectSettingsPage.java                               # Страница настроек проекта
+    │           │   └── modals/                                                # Page Object модальных окон
+    │           │       ├── CreateProjectModal.java                            # Модальное окно создания проекта
+    │           │       ├── CreateSuiteModal.java                              # Модальное окно создания тест-сьюта
+    │           │       └── ImportTestCasesModal.java                          # Модальное окно импорта тест-кейсов
+    │           │
+    │           ├── routes/
+    │           │   └── UiRoutes.java                                          # URL маршруты приложения
+    │           │
+    │           ├── steps/                                                     # Бизнес-шаги UI тестов
+    │           │   ├── LoginStep.java                                         # Шаги авторизации
+    │           │   └── ProjectsStep.java                                      # Шаги работы с проектом
+    │           │
+    │           └── wrappers/                                                  # Обёртки над элементами интерфейса
+    │               ├── ComboBox.java                                          # Выпадающий список
+    │               ├── Input.java                                             # Поле ввода
+    │               ├── RadioButton.java                                       # Радиокнопка
+    │               └── TextArea.java                                          # Многострочное текстовое поле
+    │
+    └── test/
+        ├── java/
+        │   ├── core/                                                         # Инфраструктура тестового фреймворка
+        │   │   ├── configs/                                                  
+        │   │   │   ├── AllureConfig.java                                     # Настройка Allure-отчётности
+        │   │   │   ├── BrowserConfig.java                                    # Настройка браузера
+        │   │   │   └── TestConfig.java                                       # Общие настройки тестового окружения
+        │   │   │
+        │   │   ├── data/                                                     # Тестовые данные
+        │   │   │   └── LoginTestData.java                                    # Данные для авторизации пользователей
+        │   │   │
+        │   │   ├── listeners/                                                # TestNG Listeners
+        │   │   │   ├── AnnotationTransformer.java                            # Подключение Retry-аннотации ко всем тестам
+        │   │   │   └── TestListener.java                                     # Логирование и обработка событий выполнения тестов
+        │   │   │
+        │   │   └── utils/                                                    # Вспомогательные классы для тестов
+        │   │       ├── AllureUtils.java                                      # Добавление вложений и шагов в Allure
+        │   │       └── Retry.java                                            # Повторный запуск упавших тестов
+        │   │
+        │   └── tests/                                                        # Наборы тестов
+        │       ├── api/                                                      # API-тесты
+        │       │   ├── CaseApiTest.java                                      # Tесты Test Cases
+        │       │   ├── ProjectApiTest.java                                   # Tесты Projects
+        │       │   └── SuiteApiTest.java                                     # Tесты Test Suites
+        │       │
+        │       └── ui/                                                       # UI-тесты
+        │           ├── BaseTest.java                                         # Базовый класс UI-тестов
+        │           ├── LoginUiTest.java                                      # Тесты авторизации
+        │           ├── ProjectUiTest.java                                    # Тесты управления проектами
+        │           ├── ProjectSettingsUiTest.java                            # Тесты настроек проекта
+        │           └── SuiteUITest.java                                      # Тесты управления тест-сьютом     
+        └── resources/
+            ├── allure.properties                                             # Конфигурация Allure
+            ├── config.properties                                             # Конфигурация тестового окружения
+            ├── log4j2-test.xml                                               # Настройки логирования Log4j2
+            │
+            ├── schemas/                                                      # JSON Schema для валидации API-ответов
+            │   ├── create_project_schema.json
+            │   ├── delete_project_schema.json
+            │   ├── get_all_projects_schema.json
+            │   └── ...                                                       # Схемы ошибок и остальных ответов API
+            │
+            ├── suites/                                                       # XML-конфигурации TestNG
+            │   ├── ApiTests.xml                                              # Запуск API-тестов
+            │   ├── CrossBrowser.xml                                          # Кроссбраузерный запуск UI-тестов
+            │   ├── FullTests.xml                                             # Полный запуск всех тестов
+            │   ├── RegressionTests.xml                                       # Регрессионный набор
+            │   ├── SmokeTests.xml                                            # Smoke-набор
+            │   └── UiTests.xml                                               # Запуск UI-тестов
+            │
+            └── test-file/                                                    # Тестовые файлы для UI-тестов
+               ├── logo/                                                     # Файлы для проверки загрузки логотипов
+               └── suites/                                                   # Файлы для импорта Test Suites
+```
+
+### 🏗️ Слои фреймворка
+Общая архитектура проекта.
+```text
+Tests
+    │
+    ▼
+Business Logic (Steps / Adapters)
+    │
+    ▼
+Pages / API Client
+    │
+    ▼
+Wrappers / REST API
+    │
+    ▼
+Application
+```
+
+### 🖥️ Архитектура UI-автоматизации
+Поток выполнения UI-тестов от запуска теста до взаимодействия с элементами интерфейса.
+``` text
+                    UI TEST
+
+                        │
+                        ▼
+               LoginUiTest / ProjectUiTest
+                        │
+                        ▼
+                 Step Layer (Business Logic)
+          LoginStep / ProjectsStep
+                        │
+                        ▼
+              Page Object Model (Pages)
+ LoginPage → ProjectsPage → ProjectPage → Modals
+                        │
+                        ▼
+               Wrappers (Reusable Elements)
+      Input / ComboBox / RadioButton / TextArea
+                        │
+                        ▼
+             Selenide + Selenium WebDriver
+                        │
+                        ▼
+                    Qase Web UI
+```
+
+### 🌐 Архитектура API-автоматизации
+Поток выполнения API-запросов внутри фреймворка.
+``` text
+                    API TEST
+
+                        │
+                        ▼
+       ProjectApiTest / SuiteApiTest / CaseApiTest
+                        │
+                        ▼
+                  Adapter Layer
+ ProjectAdapter / TestSuiteAdapter / TestCaseAdapter
+                        │
+                        ▼
+                     ApiClient
+                        │
+                        ▼
+                  RestAssured Client
+                        │
+                        ▼
+                    Qase REST API
+                        │
+                        ▼
+               JSON Response ↔ DTO Models
+```
+
+### 📦 Поток данных тестирования
+Схема формирования и использования тестовых данных.
+```text
+               Factory Classes
+                     │
+                     ▼
+     Faker-generated Test Data / DTO Objects
+                     │
+                     ▼
+         UI Tests              API Tests
+             │                     │
+             ▼                     ▼
+      Pages / Steps          Request Models
+```
+
+## 🏗️ Архитектурные паттерны в действии
 
 ### ◉ Page Object Model (POM)
 
@@ -74,9 +303,11 @@ _В РАЗРАБОТКЕ_
 - `BasePage` — служебный родительский класс для всех page-классов.
 - `LoginPage` — страница авторизации в системе.
 - `ProjectsPage` — страница со списком доступных проектов и интерфейсом по управлению ими.
-- `CreateProjectModal` - модальное окно по созданию нового проекта.
 - `ProjectSettingsPage` (вкладка General) — страница по изменению настроект конкретного проекта.
 - `ProjectPage` — страница конкретного проекта и интерфейсом по управлению им.
+- `CreateProjectModal` - модальное окно по созданию нового проекта.
+- `CreateSuiteModal` - модальное окно по созданию нового тест-сьюта.
+- `ImportTestCasesModal` - модальное окно по импорту тест-сьюта из внешних источников (через загрузку файла).
 
 ```java
 public class LoginPage extends BasePage {
@@ -159,6 +390,7 @@ public ProjectPage createProject(Project project) {
 компактными и читаемыми.
 
 В проекте реализованы:
+
 - `ComboBox`
 - `Input`
 - `RadioButton`
@@ -443,6 +675,11 @@ mvn allure:report
 | UI-03-05 | Upload valid project logo          | Positive | ✔️ Done           |
 | UI-03-06 | Upload invalid project logo        | Negative | ✔️ Done           |
 
-## 📑 Чек-лист интеграционных тестов (UI + API)
+### Модуль "Project -> Test Suite"
 
-https://docs.google.com/spreadsheets/d/15SvADCKblyJ6mzb4Zyr5w_LS91qAwvFPD-CtWx0lsJ4/edit?gid=0#gid=0
+| №        | Тест-кейс                                        | Группа   | Статус реализации |
+|----------|--------------------------------------------------|----------|-------------------|
+| UI-04-01 | Create suite with all fields                     | Positive | ✔️ Done           |
+| UI-04-02 | Cancel suite creation                            | Negative | ✔️ Done           |
+| UI-04-03 | Import suite by valid file with .csv extension   | Positive | ✔️ Done           |
+| UI-04-04 | Import suite by invalid file with .txt extension | Negative | ✔️ Done           |

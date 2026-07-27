@@ -20,7 +20,7 @@ public class ProjectSettingsPage extends BasePage {
     private final Input projectName = new Input($("#project-name"), "Project name");
     private final Input projectCode = new Input($("#project-code"), "Project code");
     private final TextArea description = new TextArea($("#description-area"), "Description");
-
+    private static final String LOGO_PATH = System.getProperty("user.dir") + "/src/test/resources/test-file/logo/";
 
     @Override
     public ProjectSettingsPage openPage() {
@@ -68,18 +68,20 @@ public class ProjectSettingsPage extends BasePage {
     public ProjectSettingsPage uploadLogo(String fileName) {
         log.info("Upload project logo: {}", fileName);
         $("input[type='file']")
-                .uploadFile(new File("src/test/resources/logo/" + fileName));
+                .uploadFile(new File(LOGO_PATH + fileName));
         return this;
     }
 
     @Step("Click 'Update settings'")
     public ProjectSettingsPage clickUpdate() {
+        log.info("Click 'Update settings'");
         $(byText(UPDATE_SETTINGS_BUTTON)).click();
         return this;
     }
 
     @Step("Verify project settings updated successfully")
     public ProjectSettingsPage verifySettingsUpdated() {
+        log.info("Verify project settings updated successfully");
         $(byText(PROJECT_SETTINGS_UPDATED))
                 .shouldBe(visible);
         return this;

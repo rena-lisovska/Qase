@@ -12,7 +12,7 @@ public class UiProjectFactory {
     public static Project validProject() {
         Project project = Project.builder()
                 .name(FAKER.company().name())
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .description(FAKER.lorem().sentence())
                 .accessType("private")
                 .memberAccess("all")
@@ -24,7 +24,7 @@ public class UiProjectFactory {
     public static Project minimalProject() {
         Project project = Project.builder()
                 .name(FAKER.company().name())
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .build();
         log.info("Generated UI project with required fields only: [{}]", project);
         return project;
@@ -32,7 +32,7 @@ public class UiProjectFactory {
 
     public static Project withoutName() {
         Project project = Project.builder()
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .accessType("private")
                 .memberAccess("all")
                 .build();
@@ -53,7 +53,7 @@ public class UiProjectFactory {
     public static Project publicProject() {
         Project project = Project.builder()
                 .name(FAKER.company().name())
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .description(FAKER.lorem().sentence())
                 .accessType("public")
                 .build();
@@ -64,7 +64,7 @@ public class UiProjectFactory {
     public static Project groupAccessProject() {
         Project project = Project.builder()
                 .name(FAKER.company().name())
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .accessType("private")
                 .memberAccess("group")
                 .group("Owner group")
@@ -76,7 +76,7 @@ public class UiProjectFactory {
     public static Project noMembersProject() {
         Project project = Project.builder()
                 .name(FAKER.company().name())
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .accessType("private")
                 .memberAccess("none")
                 .build();
@@ -87,7 +87,7 @@ public class UiProjectFactory {
     public static Project groupAccessWithoutGroup() {
         Project project = Project.builder()
                 .name(FAKER.company().name())
-                .code(FAKER.bothify("QA##"))
+                .code(FAKER.bothify("QA###"))
                 .accessType("private")
                 .memberAccess("group")
                 .group(null)
