@@ -10,8 +10,8 @@ ___
 
 - [Описание проекта](#-описание-проекта)
 - [Технологический стек](#-технологический-стек)
-- [Структура проекта](#-структура-проекта)
-- [Архитектурные паттерны](#-архитектурные-паттерны-в-действии)
+- [Архитектура проекта](#-архитектура-проекта)
+- [Паттерны проектирования](#-паттерны-проектирования)
     - [Page Object Model (POM)](#-page-object-model-pom)
     - [Chain of Invocations](#-chain-of-invocations)
     - [Builder и Test Data Factory](#-builder-и-factory-test-data-factory)
@@ -59,7 +59,7 @@ ___
 
 ___
 
-## 📐 Структура проекта
+## 📐 Архитектура проекта
 Проект реализован с использованием многослойной архитектуры, что позволяет разделить ответственность между компонентами:
 
 - **Tests** — содержат только сценарии тестирования и проверки.
@@ -208,19 +208,19 @@ Qase/
 ### 🏗️ Слои фреймворка
 Общая архитектура проекта.
 ```text
-Tests
-    │
-    ▼
-Business Logic (Steps / Adapters)
-    │
-    ▼
-Pages / API Client
-    │
-    ▼
-Wrappers / REST API
-    │
-    ▼
-Application
+                      Tests
+                        │
+                        ▼
+          Business Logic (Steps / Adapters)
+                        │
+                        ▼
+                 Pages / API Client
+                        │
+                        ▼
+                 Wrappers / REST API
+                        │
+                        ▼
+                   Application
 ```
 
 ### 🖥️ Архитектура UI-автоматизации
@@ -291,8 +291,9 @@ Application
              ▼                     ▼
       Pages / Steps          Request Models
 ```
+___
 
-## 🏗️ Архитектурные паттерны в действии
+## 🏗️ Паттерны проектирования
 
 ### ◉ Page Object Model (POM)
 
@@ -502,6 +503,7 @@ public Object[][] invalidCredentials() {
     };
 }
 ```
+___
 
 ## 🧰 Конфигурация, запуск тестов, отчётность
 
@@ -596,6 +598,7 @@ mvn allure:report
 - использует GitHub Secrets для хранения учётных данных;
 - формирует Allure Report по результатам выполнения тестов;
 - публикует отчёт на GitHub Pages.
+___
 
 ## 📑 Чек-лист API тестов
 
@@ -636,6 +639,8 @@ mvn allure:report
 | API-03-07 | Delete test suite                          | DELETE                      | `/suite/{code}/{id}`                   | Positive | ✔️ Done           |
 | API-03-08 | Delete test suite with incorrect parameter | DELETE                      | `/suite/{code}/{id}`                   | Negative | ✔️ Done           |
 | API-03-09 | CRUD: create, get and delete test suite    | POST / GET / PATCH / DELETE | `/suite/{code}` / `/suite/{code}/{id}` | Positive | ✔️ Done           |
+
+___
 
 ## 📑 Чек-лист UI тестов
 
