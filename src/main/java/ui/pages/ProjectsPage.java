@@ -4,9 +4,9 @@ import ui.pages.modals.CreateProjectModal;
 import ui.routes.UiRoutes;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverConditions.urlContaining;
 import static ui.dict.Elements.CREATE_NEW_PROJECT;
@@ -17,7 +17,7 @@ public class ProjectsPage extends BasePage {
 
     public static final String PROJECT_ACTION_MENU = "button[aria-label='Open action menu']";
     public static final String REMOVE_PROJECT_BUTTON = "[data-testid='remove']";
-    public static final String DELETE_PROJECT_BUTTON = "Delete project";
+    public static final String DELETE_PROJECT_BUTTON = "//button[.//span[text()='Delete project']]";
     private static final String SETTINGS_PROJECT_BUTTON = "[data-testid='settings']";
 
     @Override
@@ -50,25 +50,28 @@ public class ProjectsPage extends BasePage {
             log.warn("Project name is empty, skip existence check");
             return false;
         }
-        return $$("td")
-                .findBy(text(projectName))
+        return $$(byText(projectName))
+                .findBy(visible)
                 .exists();
     }
 
     @Step("Delete project '{projectName}'")
     public ProjectsPage deleteProject(String projectName) {
         log.info("Delete project '{}'", projectName);
-        $(byText(projectName))
-                .ancestor("tr")
+        $$("tr")
+                .findBy(text(projectName))
+                .shouldBe(visible)
                 .find(PROJECT_ACTION_MENU)
                 .click();
         $(REMOVE_PROJECT_BUTTON)
                 .shouldBe(visible)
                 .click();
-        $x(DELETE_PROJECT_BUTTON)
+        $(byXpath(DELETE_PROJECT_BUTTON))
                 .shouldBe(visible)
                 .click();
-        $(byText(projectName)).shouldNotBe(visible);
+        $$("tr")
+                .findBy(text(projectName))
+                .shouldNot(exist);
         return this;
     }
 

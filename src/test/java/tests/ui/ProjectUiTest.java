@@ -249,13 +249,11 @@ public class ProjectUiTest extends BaseTest {
         if (projectNameForDelete == null) {
             return;
         }
-        ProjectsPage projectsPage = new ProjectsPage();
         try {
-            projectsPage
-                    .openPage();
-            if (projectsPage.isProjectExists(projectNameForDelete)) {
-                projectsPage.deleteProject(projectNameForDelete);
-            }
+            new ProjectsPage()
+                    .openPage()
+                    .deleteProject(projectNameForDelete);
+
         } finally {
             projectNameForDelete = null;
         }

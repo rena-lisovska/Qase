@@ -171,15 +171,12 @@ public class ProjectSettingsUiTest extends BaseTest {
         if (projectNameForDelete == null) {
             return;
         }
-        ProjectsPage projectsPage = new ProjectsPage();
         try {
-            projectsPage.openPage();
-            if (projectsPage.isProjectExists(projectNameForDelete)) {
-                projectsPage.deleteProject(projectNameForDelete);
-            }
+            new ProjectsPage()
+                    .openPage()
+                    .deleteProject(projectNameForDelete);
+
         } finally {
-            project = null;
-            updatedProject = null;
             projectNameForDelete = null;
         }
     }
