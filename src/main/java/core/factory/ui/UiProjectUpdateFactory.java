@@ -22,7 +22,7 @@ public class UiProjectUpdateFactory {
     public static Project appendUpdate(Project source) {
         Project project = Project.builder()
                 .name("Update" + source.getName())
-                .code("Update" + source.getCode())
+                .code("Up" + source.getCode())
                 .description("Update! " + source.getDescription())
                 .build();
         log.info("Generated project data with Update suffix: [{}]", project);
