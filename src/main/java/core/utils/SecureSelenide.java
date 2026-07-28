@@ -8,7 +8,6 @@ public final class SecureSelenide {
     private SecureSelenide() {
     }
 
-    @Step("Fill secret field")
     public static void setSecretValue(SelenideElement element, String value) {
         element.getWrappedElement().sendKeys(value);
     }
