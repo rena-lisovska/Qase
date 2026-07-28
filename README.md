@@ -277,20 +277,6 @@ Qase/
                JSON Response ↔ DTO Models
 ```
 
-### 📦 Поток данных тестирования
-Схема формирования и использования тестовых данных.
-```text
-               Factory Classes
-                     │
-                     ▼
-     Faker-generated Test Data / DTO Objects
-                     │
-                     ▼
-         UI Tests              API Tests
-             │                     │
-             ▼                     ▼
-      Pages / Steps          Request Models
-```
 ___
 
 ## 🏗️ Паттерны проектирования
@@ -306,9 +292,9 @@ ___
 - `ProjectsPage` — страница со списком доступных проектов и интерфейсом по управлению ими.
 - `ProjectSettingsPage` (вкладка General) — страница по изменению настроект конкретного проекта.
 - `ProjectPage` — страница конкретного проекта и интерфейсом по управлению им.
-- `CreateProjectModal` - модальное окно по созданию нового проекта.
-- `CreateSuiteModal` - модальное окно по созданию нового тест-сьюта.
-- `ImportTestCasesModal` - модальное окно по импорту тест-сьюта из внешних источников (через загрузку файла).
+- `CreateProjectModal` — модальное окно по созданию нового проекта.
+- `CreateSuiteModal` — модальное окно по созданию нового тест-сьюта.
+- `ImportTestCasesModal` — модальное окно по импорту тест-сьюта из внешних источников (через загрузку файла).
 
 ```java
 public class LoginPage extends BasePage {
