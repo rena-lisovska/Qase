@@ -45,18 +45,14 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    @Step("Login with positive credentials")
     public ProjectsPage login(String user, String password) {
-        log.info("Login with positive credentials");
         SecureSelenide.setSecretValue($(LOGIN_INPUT), user);
         SecureSelenide.setSecretValue($(PASSWORD_INPUT), password);
         $(byText(SIGN_IN_BUTTON)).click();
         return new ProjectsPage();
     }
 
-    @Step("Attempt login with invalid credentials")
     public LoginPage loginExpectingError(String user, String password) {
-        log.info("Attempting login with invalid credentials");
         SecureSelenide.setSecretValue($(LOGIN_INPUT), user);
         SecureSelenide.setSecretValue($(PASSWORD_INPUT), password);
         $(byText(SIGN_IN_BUTTON)).click();

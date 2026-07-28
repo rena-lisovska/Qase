@@ -8,7 +8,6 @@ public class LoginStep {
 
     private final LoginPage loginPage = new LoginPage();
 
-    @Step("Authorize user")
     public ProjectsPage authorize(String user, String password) {
         ProjectsPage projectsPage = loginPage.openPage()
                 .isPageOpened()
